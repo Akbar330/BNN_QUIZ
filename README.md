@@ -58,19 +58,21 @@ Aplikasi quiz berbasis **Laravel 10** dengan logika role-based sesuai flowchart 
 ## 1️⃣ **Clone Repository**
 
 ---
-
+```
 git clone https://github.com/Akbar330/BNN_QUIZ.git
 cd laravel-quiz-app
+```
 
 ## 2️⃣ Install Dependencies
 
 ---
-
+```
 Copy
 Edit
 composer install
 npm install
 npm run dev
+```
 
 ## 3️⃣ Setup Environment
 
