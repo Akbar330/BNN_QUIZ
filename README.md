@@ -153,7 +153,9 @@ Buat Pull Request
 
 ---
 
-MIT License
+Hak cipta © 2025 Badan Narkotika Nasional Kota Bandung.  
+Dilarang menggunakan kode ini untuk tujuan komersial tanpa izin tertulis.  
+Boleh digunakan, dimodifikasi, dan dibagikan untuk tujuan non-komersial dengan menyertakan kredit.
 
  
 <p align="center"> 💡 *"Belajar adalah perjalanan, bukan tujuan. Teruslah membangun dan berkembang."* </p>
