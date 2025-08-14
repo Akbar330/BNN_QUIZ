@@ -34,6 +34,12 @@ public function index()
     public function show(Quiz $quiz)
     {
         $user = auth()->user();
+        $userAttempts = $user->quizAttempts()
+            ->where('quiz_id', $quiz->id)
+            ->whereNull('finished_at')
+            ->count();
+
+            
         
         if (!$quiz->canBeAccessedBy($user->role)) {
             abort(403, 'Anda tidak memiliki akses ke quiz ini.');

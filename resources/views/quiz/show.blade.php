@@ -244,6 +244,25 @@
         color: #92400e;
     }
 
+    /* Alert untuk quiz completed */
+    .alert-completed {
+        background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+        border: 2px solid #f87171;
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: #dc2626;
+    }
+
+    .alert-completed i {
+        color: #ef4444;
+        font-size: 1.5rem;
+    }
+
+    .alert-completed strong {
+        color: #991b1b;
+    }
+
     .quiz-preview {
         max-height: 400px;
         overflow-y: auto;
@@ -423,6 +442,21 @@
 
     .start-button:hover::before {
         left: 100%;
+    }
+
+    /* Disabled button styles */
+    .start-button:disabled,
+    .btn-disabled {
+        background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+        cursor: not-allowed;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    .start-button:disabled:hover,
+    .btn-disabled:hover {
+        transform: none;
+        box-shadow: none;
     }
 
     .alert-info-modern {
@@ -662,6 +696,49 @@
         @endif
     </div>
 
+    <!-- Check if user has completed attempts -->
+    @php
+        $userCompletedAttempts = auth()->user()->quizAttempts()
+            ->where('quiz_id', $quiz->id)
+            ->whereNotNull('finished_at')
+            ->count();
+        
+        $userUnfinishedAttempts = auth()->user()->quizAttempts()
+            ->where('quiz_id', $quiz->id)
+            ->whereNull('finished_at')
+            ->count();
+        
+        $maxAttempts = $quiz->max_attempts ?? 1; // Default to 1 if not set
+        $canTakeQuiz = $userCompletedAttempts < $maxAttempts && $userUnfinishedAttempts == 0;
+        
+        $userAttempts = auth()->user()->quizAttempts()
+            ->where('quiz_id', $quiz->id)
+            ->whereNotNull('finished_at')
+            ->latest()
+            ->take(3)
+            ->get();
+    @endphp
+
+    <!-- Alert if quiz completed -->
+    @if(!$canTakeQuiz && $userCompletedAttempts >= $maxAttempts)
+    <div class="alert-completed">
+        <div class="d-flex align-items-center">
+            <div>
+                <i class="fas fa-check-circle me-3"></i>
+            </div>
+            <div>
+                <h5 style="color: #991b1b; font-weight: 700; margin-bottom: 0.5rem;">Quiz Telah Selesai Dikerjakan</h5>
+                <p style="margin: 0;">
+                    Anda telah menyelesaikan quiz ini sebanyak <strong>{{ $userCompletedAttempts }} kali</strong> dari maksimal <strong>{{ $maxAttempts }} percobaan</strong>. 
+                    @if($userAttempts->count() > 0)
+                        Skor tertinggi Anda: <strong>{{ $userAttempts->max('score') }}%</strong>
+                    @endif
+                </p>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <!-- Quiz Information Cards -->
     <div class="row mb-4">
         <div class="col-md-3 col-sm-6 mb-3">
@@ -755,6 +832,17 @@
                                 <i class="fas fa-chart-bar"></i>
                                 Hasil dan penjelasan akan ditampilkan setelah submit
                             </li>
+                            @if($maxAttempts > 1)
+                            <li>
+                                <i class="fas fa-redo"></i>
+                                Maksimal percobaan: <strong>{{ $maxAttempts }} kali</strong>
+                            </li>
+                            @else
+                            <li>
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Quiz hanya dapat dikerjakan <strong>1 kali</strong>
+                            </li>
+                            @endif
                         </ul>
                     </div>
                     
@@ -776,42 +864,43 @@
                 </div>
                 <div class="card-body quiz-preview">
                     @if($quiz->questions->count() > 0)
-                        @foreach($quiz->questions->take(3) as $index => $question)
-                            <div class="sample-question">
-                                <h6>
-                                    <i class="fas fa-question-circle"></i>
-                                    Contoh Soal {{ $index + 1 }}:
-                                </h6>
-                                <p>{{ Str::limit($question->question, 100) }}</p>
-                                
-                                <div class="row">
-                                    <div class="col-6">
-                                        <small>
-                                            <i class="fas fa-circle" style="font-size: 6px;"></i>
-                                            A. {{ Str::limit($question->option_a, 30) }}
-                                        </small>
-                                    </div>
-                                    <div class="col-6">
-                                        <small>
-                                            <i class="fas fa-circle" style="font-size: 6px;"></i>
-                                            B. {{ Str::limit($question->option_b, 30) }}
-                                        </small>
-                                    </div>
-                                    <div class="col-6">
-                                        <small>
-                                            <i class="fas fa-circle" style="font-size: 6px;"></i>
-                                            C. {{ Str::limit($question->option_c, 30) }}
-                                        </small>
-                                    </div>
-                                    <div class="col-6">
-                                        <small>
-                                            <i class="fas fa-circle" style="font-size: 6px;"></i>
-                                            D. {{ Str::limit($question->option_d, 30) }}
-                                        </small>
-                                    </div>
-                                </div>
+                                        @php
+                    $dummyQuestions = [
+                        [
+                            'question' => 'Siapa penemu lampu pijar?',
+                            'option_a' => 'Nikola Tesla',
+                            'option_b' => 'Alexander Graham Bell',
+                            'option_c' => 'Thomas Alva Edison',
+                            'option_d' => 'Albert Einstein',
+                        ],
+                    ];
+                @endphp
+
+                @foreach($dummyQuestions as $index => $question)
+                    <div class="sample-question">
+                        <h6>
+                            <i class="fas fa-question-circle"></i>
+                            Contoh Soal {{ $index + 1 }}:
+                        </h6>
+                        <p>{{ Str::limit($question['question'], 100) }}</p>
+                        
+                        <div class="row">
+                            <div class="col-6">
+                                <small><i class="fas fa-circle" style="font-size: 6px;"></i> A. {{ Str::limit($question['option_a'], 30) }}</small>
                             </div>
-                        @endforeach
+                            <div class="col-6">
+                                <small><i class="fas fa-circle" style="font-size: 6px;"></i> B. {{ Str::limit($question['option_b'], 30) }}</small>
+                            </div>
+                            <div class="col-6">
+                                <small><i class="fas fa-circle" style="font-size: 6px;"></i> C. {{ Str::limit($question['option_c'], 30) }}</small>
+                            </div>
+                            <div class="col-6">
+                                <small><i class="fas fa-circle" style="font-size: 6px;"></i> D. {{ Str::limit($question['option_d'], 30) }}</small>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
                         
                         @if($quiz->questions->count() > 3)
                             <div class="text-center mt-3">
@@ -835,15 +924,6 @@
     </div>
 
     <!-- User's Quiz History for this Quiz -->
-    @php
-        $userAttempts = auth()->user()->quizAttempts()
-            ->where('quiz_id', $quiz->id)
-            ->whereNotNull('finished_at')
-            ->latest()
-            ->take(3)
-            ->get();
-    @endphp
-    
     @if($userAttempts->count() > 0)
     <div class="row mb-4">
         <div class="col-12">
@@ -917,46 +997,83 @@
             <div class="card start-quiz-card">
                 <div class="card-body">
                     @if($quiz->questions->count() > 0)
-                        <div style="background: var(--bnn-primary); color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
-                            <i class="fas fa-rocket" style="font-size: 2rem;"></i>
-                        </div>
-                        <h4>Siap untuk memulai quiz?</h4>
-                        <p>
-                            Pastikan Anda telah membaca semua petunjuk di atas. 
-                            Klik tombol di bawah untuk memulai quiz.
-                        </p>
-                        
-                        <!-- Warning for users who already took the quiz -->
-                        @if($userAttempts->count() > 0)
-                            <div class="alert-info-modern">
-                                <i class="fas fa-info-circle me-2"></i>
-                                Anda sudah pernah mengerjakan quiz ini <strong>{{ $userAttempts->count() }} kali</strong>. 
-                                Skor tertinggi: <strong>{{ $userAttempts->max('score') }}%</strong>
+                        <!-- Check if user can take quiz -->
+                        @if($canTakeQuiz)
+                            <div style="background: var(--bnn-primary); color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                                <i class="fas fa-rocket" style="font-size: 2rem;"></i>
                             </div>
-                        @endif
+                            <h4>Siap untuk memulai quiz?</h4>
+                            <p>
+                                Pastikan Anda telah membaca semua petunjuk di atas. 
+                                Klik tombol di bawah untuk memulai quiz.
+                            </p>
+                            
+                            <!-- Warning for users who already took the quiz -->
+                            @if($userAttempts->count() > 0)
+                                <div class="alert-info-modern">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    Anda sudah pernah mengerjakan quiz ini <strong>{{ $userAttempts->count() }} kali</strong>. 
+                                    Skor tertinggi: <strong>{{ $userAttempts->max('score') }}%</strong>
+                                    <br>
+                                    Percobaan tersisa: <strong>{{ $maxAttempts - $userCompletedAttempts }} kali</strong>
+                                </div>
+                            @endif
 
-                        @if($quiz->passing_score)
-                            <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 1px solid var(--bnn-accent); border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem;">
-                                <i class="fas fa-target" style="color: var(--bnn-accent); margin-right: 0.5rem;"></i>
-                                <strong style="color: var(--bnn-dark);">Target:</strong> 
-                                <span style="color: #15803d;">Skor minimal {{ $quiz->passing_score }}% untuk lulus</span>
+                            @if($quiz->passing_score)
+                                <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 1px solid var(--bnn-accent); border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem;">
+                                    <i class="fas fa-target" style="color: var(--bnn-accent); margin-right: 0.5rem;"></i>
+                                    <strong style="color: var(--bnn-dark);">Target:</strong> 
+                                    <span style="color: #15803d;">Skor minimal {{ $quiz->passing_score }}% untuk lulus</span>
+                                </div>
+                            @endif
+                            
+                            <form action="{{ route('quiz.start', $quiz) }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="start-button" 
+                                        onclick="return confirm('Yakin ingin memulai quiz? Pastikan Anda sudah siap!')">
+                                    <i class="fas fa-play me-2"></i>Mulai Quiz Sekarang
+                                </button>
+                            </form>
+                            
+                            <div style="margin-top: 1.5rem;">
+                                <small style="color: #64748b; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                                    <i class="fas fa-clock"></i>
+                                    Waktu pengerjaan: {{ $quiz->time_limit }} menit
+                                </small>
                             </div>
+                        @else
+                            <!-- Quiz completed or max attempts reached -->
+                            <div style="background: #9ca3af; color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                                <i class="fas fa-check-circle" style="font-size: 2rem;"></i>
+                            </div>
+                            <h4>Quiz Telah Diselesaikan</h4>
+                            
+                            @if($userUnfinishedAttempts > 0)
+                                <p style="color: #f59e0b; font-weight: 600;">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    Anda memiliki quiz yang belum selesai. Selesaikan terlebih dahulu sebelum memulai yang baru.
+                                </p>
+                                <a href="{{ route('quiz.take', $quiz) }}" class="btn btn-modern">
+                                    <i class="fas fa-play"></i> Lanjutkan Quiz
+                                </a>
+                            @else
+                                <p>
+                                    Anda telah menyelesaikan quiz ini sebanyak <strong>{{ $userCompletedAttempts }} kali</strong> dari maksimal <strong>{{ $maxAttempts }} percobaan</strong>. 
+                                    @if($userAttempts->count() > 0)
+                                        <br>Skor tertinggi Anda: <strong>{{ $userAttempts->max('score') }}%</strong>
+                                    @endif
+                                </p>
+                                
+                                @if($userAttempts->count() > 0)
+                                    <div style="margin-top: 1.5rem;">
+                                        <a href="{{ route('quiz.result', [$quiz, $userAttempts->first()]) }}" 
+                                           class="btn btn-modern">
+                                            <i class="fas fa-chart-bar"></i> Lihat Hasil Terakhir
+                                        </a>
+                                    </div>
+                                @endif
+                            @endif
                         @endif
-                        
-                        <form action="{{ route('quiz.start', $quiz) }}" method="POST" class="d-inline">
-                            @csrf
-                            <button type="submit" class="start-button" 
-                                    onclick="return confirm('Yakin ingin memulai quiz? Pastikan Anda sudah siap!')">
-                                <i class="fas fa-play me-2"></i>Mulai Quiz Sekarang
-                            </button>
-                        </form>
-                        
-                        <div style="margin-top: 1.5rem;">
-                            <small style="color: #64748b; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-                                <i class="fas fa-clock"></i>
-                                Waktu pengerjaan: {{ $quiz->time_limit }} menit
-                            </small>
-                        </div>
                     @else
                         <div class="empty-state">
                             <div class="empty-state-icon">
@@ -1008,9 +1125,19 @@
                         <i class="fas fa-lightbulb"></i>
                     </div>
                     <div style="flex: 1; margin-left: 1rem;">
-                        <h6 style="color: var(--bnn-dark); font-weight: 600; margin-bottom: 0.5rem;">Tips Sukses Quiz</h6>
+                        <h6 style="color: var(--bnn-dark); font-weight: 600; margin-bottom: 0.5rem;">
+                            @if($canTakeQuiz)
+                                Tips Sukses Quiz
+                            @else
+                                Ingin Meningkatkan Pemahaman?
+                            @endif
+                        </h6>
                         <p style="color: #0369a1; margin: 0; font-size: 0.9rem;">
-                            Baca setiap soal dengan cermat, jangan terburu-buru, dan gunakan pengetahuan Anda tentang bahaya narkoba untuk menjawab setiap pertanyaan.
+                            @if($canTakeQuiz)
+                                Baca setiap soal dengan cermat, jangan terburu-buru, dan gunakan pengetahuan Anda tentang bahaya narkoba untuk menjawab setiap pertanyaan.
+                            @else
+                                Meskipun Anda sudah menyelesaikan quiz ini, terus pelajari materi tentang bahaya narkoba untuk meningkatkan pemahaman Anda.
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -1062,6 +1189,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 @if($quiz->passing_score)
                 '• Target skor minimal: {{ $quiz->passing_score }}%\n' +
                 @endif
+                @if($maxAttempts > 1)
+                '• Percobaan tersisa: {{ $maxAttempts - $userCompletedAttempts }} kali\n' +
+                @else
+                '• Quiz hanya dapat dikerjakan 1 kali\n' +
+                @endif
                 '\nKlik OK untuk melanjutkan.'
             );
             
@@ -1072,7 +1204,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Add loading state to start button
-    const startButton = document.querySelector('.start-button');
+    const startButton = document.querySelector('.start-button:not(:disabled)');
     if (startButton) {
         startButton.addEventListener('click', function() {
             setTimeout(() => {
