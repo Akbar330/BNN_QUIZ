@@ -153,7 +153,7 @@ Buat Pull Request
 
 ---
 
-Hak cipta © 2025 Badan Narkotika Nasional Kota Bandung.  
+Hak cipta © 2025 GHDBH dan Badan Narkotika Nasional Kota Bandung.  
 Dilarang menggunakan kode ini untuk tujuan komersial tanpa izin tertulis.  
 Boleh digunakan, dimodifikasi, dan dibagikan untuk tujuan non-komersial dengan menyertakan kredit.
 
