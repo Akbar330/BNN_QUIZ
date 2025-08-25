@@ -6,19 +6,22 @@
 @section('content')
 <div class="row">
     <div class="col-md-10 mx-auto">
-        <div class="card">
-            <div class="card-header">
-                <h5><i class="fas fa-plus"></i> Tambah Soal Baru</h5>
-                <p class="text-muted mb-0">Quiz: <strong>{{ $quiz->title }}</strong></p>
+        <div class="card shadow-sm border-0" style="border-radius: 16px; overflow: hidden;">
+            <div class="card-header" style="background: linear-gradient(135deg, var(--bnn-blue-light) 0%, var(--bnn-blue-dark) 100%); border: none; padding: 1.5rem;">
+                <h5 class="text-white mb-1"><i class="fas fa-plus me-2"></i> Tambah Soal Baru</h5>
+                <p class="text-white mb-0 opacity-75">Quiz: <strong>{{ $quiz->title }}</strong></p>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="padding: 2rem;">
                 <form method="POST" action="{{ route('admin.question.store', $quiz) }}">
                     @csrf
                     
                     <div class="mb-4">
-                        <label class="form-label">Pertanyaan *</label>
+                        <label class="form-label fw-semibold text-dark">Pertanyaan *</label>
                         <textarea name="question" class="form-control @error('question') is-invalid @enderror" 
-                                  rows="3" required placeholder="Tulis pertanyaan di sini...">{{ old('question') }}</textarea>
+                                  rows="3" required placeholder="Tulis pertanyaan di sini..."
+                                  style="border-radius: 12px; border: 2px solid var(--bnn-blue-soft); transition: all 0.3s ease;"
+                                  onfocus="this.style.borderColor='var(--bnn-blue-light)'; this.style.boxShadow='0 0 0 0.2rem rgba(59, 130, 246, 0.1)'"
+                                  onblur="this.style.borderColor='var(--bnn-blue-soft)'; this.style.boxShadow='none'">{{ old('question') }}</textarea>
                         @error('question')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -27,9 +30,12 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">Pilihan A *</label>
+                                <label class="form-label fw-semibold text-dark">Pilihan A *</label>
                                 <input type="text" name="option_a" class="form-control @error('option_a') is-invalid @enderror" 
-                                       value="{{ old('option_a') }}" required placeholder="Pilihan A">
+                                       value="{{ old('option_a') }}" required placeholder="Pilihan A"
+                                       style="border-radius: 12px; border: 2px solid var(--bnn-blue-soft); transition: all 0.3s ease;"
+                                       onfocus="this.style.borderColor='var(--bnn-blue-light)'; this.style.boxShadow='0 0 0 0.2rem rgba(59, 130, 246, 0.1)'"
+                                       onblur="this.style.borderColor='var(--bnn-blue-soft)'; this.style.boxShadow='none'">
                                 @error('option_a')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -38,9 +44,12 @@
                         
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">Pilihan B *</label>
+                                <label class="form-label fw-semibold text-dark">Pilihan B *</label>
                                 <input type="text" name="option_b" class="form-control @error('option_b') is-invalid @enderror" 
-                                       value="{{ old('option_b') }}" required placeholder="Pilihan B">
+                                       value="{{ old('option_b') }}" required placeholder="Pilihan B"
+                                       style="border-radius: 12px; border: 2px solid var(--bnn-blue-soft); transition: all 0.3s ease;"
+                                       onfocus="this.style.borderColor='var(--bnn-blue-light)'; this.style.boxShadow='0 0 0 0.2rem rgba(59, 130, 246, 0.1)'"
+                                       onblur="this.style.borderColor='var(--bnn-blue-soft)'; this.style.boxShadow='none'">
                                 @error('option_b')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -51,9 +60,12 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">Pilihan C *</label>
+                                <label class="form-label fw-semibold text-dark">Pilihan C *</label>
                                 <input type="text" name="option_c" class="form-control @error('option_c') is-invalid @enderror" 
-                                       value="{{ old('option_c') }}" required placeholder="Pilihan C">
+                                       value="{{ old('option_c') }}" required placeholder="Pilihan C"
+                                       style="border-radius: 12px; border: 2px solid var(--bnn-blue-soft); transition: all 0.3s ease;"
+                                       onfocus="this.style.borderColor='var(--bnn-blue-light)'; this.style.boxShadow='0 0 0 0.2rem rgba(59, 130, 246, 0.1)'"
+                                       onblur="this.style.borderColor='var(--bnn-blue-soft)'; this.style.boxShadow='none'">
                                 @error('option_c')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -62,9 +74,12 @@
                         
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">Pilihan D *</label>
+                                <label class="form-label fw-semibold text-dark">Pilihan D *</label>
                                 <input type="text" name="option_d" class="form-control @error('option_d') is-invalid @enderror" 
-                                       value="{{ old('option_d') }}" required placeholder="Pilihan D">
+                                       value="{{ old('option_d') }}" required placeholder="Pilihan D"
+                                       style="border-radius: 12px; border: 2px solid var(--bnn-blue-soft); transition: all 0.3s ease;"
+                                       onfocus="this.style.borderColor='var(--bnn-blue-light)'; this.style.boxShadow='0 0 0 0.2rem rgba(59, 130, 246, 0.1)'"
+                                       onblur="this.style.borderColor='var(--bnn-blue-soft)'; this.style.boxShadow='none'">
                                 @error('option_d')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -73,8 +88,11 @@
                     </div>
                     
                     <div class="mb-4">
-                        <label class="form-label">Jawaban Benar *</label>
-                        <select name="correct_answer" class="form-select @error('correct_answer') is-invalid @enderror" required>
+                        <label class="form-label fw-semibold text-dark">Jawaban Benar *</label>
+                        <select name="correct_answer" class="form-select @error('correct_answer') is-invalid @enderror" required
+                                style="border-radius: 12px; border: 2px solid var(--bnn-blue-soft); transition: all 0.3s ease;"
+                                onfocus="this.style.borderColor='var(--bnn-blue-light)'; this.style.boxShadow='0 0 0 0.2rem rgba(59, 130, 246, 0.1)'"
+                                onblur="this.style.borderColor='var(--bnn-blue-soft)'; this.style.boxShadow='none'">
                             <option value="">Pilih Jawaban Benar</option>
                             <option value="a" {{ old('correct_answer') === 'a' ? 'selected' : '' }}>A</option>
                             <option value="b" {{ old('correct_answer') === 'b' ? 'selected' : '' }}>B</option>
@@ -87,21 +105,33 @@
                     </div>
                     
                     <div class="mb-4">
-                        <label class="form-label">Penjelasan *</label>
+                        <label class="form-label fw-semibold text-dark">Penjelasan *</label>
                         <textarea name="explanation" class="form-control @error('explanation') is-invalid @enderror" 
-                                  rows="3" required placeholder="Berikan penjelasan mengapa jawaban tersebut benar...">{{ old('explanation') }}</textarea>
+                                  rows="3" required placeholder="Berikan penjelasan mengapa jawaban tersebut benar..."
+                                  style="border-radius: 12px; border: 2px solid var(--bnn-blue-soft); transition: all 0.3s ease;"
+                                  onfocus="this.style.borderColor='var(--bnn-blue-light)'; this.style.boxShadow='0 0 0 0.2rem rgba(59, 130, 246, 0.1)'"
+                                  onblur="this.style.borderColor='var(--bnn-blue-soft)'; this.style.boxShadow='none'">{{ old('explanation') }}</textarea>
                         @error('explanation')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                        <div class="form-text">Penjelasan akan ditampilkan setelah peserta menyelesaikan quiz</div>
+                        <div class="form-text" style="color: var(--bnn-blue-light); font-weight: 500;">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Penjelasan akan ditampilkan setelah peserta menyelesaikan quiz
+                        </div>
                     </div>
                     
-                    <div class="d-flex justify-content-between">
-                        <a href="{{ route('admin.quiz.questions', $quiz) }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Kembali
+                    <div class="d-flex justify-content-between pt-3" style="border-top: 1px solid var(--bnn-blue-soft);">
+                        <a href="{{ route('admin.quiz.questions', $quiz) }}" class="btn btn-secondary px-4 py-2" 
+                           style="border-radius: 12px; font-weight: 500; transition: all 0.3s ease; background: var(--bnn-gray-light); border: 2px solid var(--bnn-gray-light); color: var(--bnn-gray-dark);"
+                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'"
+                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                            <i class="fas fa-arrow-left me-2"></i> Kembali
                         </a>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Simpan Soal
+                        <button type="submit" class="btn btn-primary px-4 py-2" 
+                                style="border-radius: 12px; font-weight: 600; background: linear-gradient(135deg, var(--bnn-blue-light), var(--bnn-blue-dark)); border: none; transition: all 0.3s ease;"
+                                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(59, 130, 246, 0.4)'"
+                                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(59, 130, 246, 0.2)'">
+                            <i class="fas fa-save me-2"></i> Simpan Soal
                         </button>
                     </div>
                 </form>

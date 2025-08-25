@@ -6,13 +6,14 @@
 @push('styles')
 <style>
     .quiz-header {
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        border-radius: 20px;
-        padding: 2rem;
+        background: linear-gradient(135deg, var(--bnn-white) 0%, var(--bnn-blue-soft) 100%);
+        border-radius: 24px;
+        padding: 2.5rem;
         margin-bottom: 2rem;
-        border: 1px solid #e2e8f0;
+        border: none;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.08);
     }
 
     .quiz-header::before {
@@ -21,19 +22,19 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--bnn-primary) 0%, var(--bnn-gold) 50%, var(--bnn-accent) 100%);
+        height: 5px;
+        background: linear-gradient(90deg, var(--bnn-blue-dark) 0%, var(--bnn-blue-light) 30%, var(--bnn-yellow) 50%, var(--bnn-blue-light) 70%, var(--bnn-blue-dark) 100%);
     }
 
     .quiz-hero {
-        background: linear-gradient(135deg, var(--bnn-primary) 0%, var(--bnn-secondary) 100%);
+        background: linear-gradient(135deg, var(--bnn-blue-dark) 0%, var(--bnn-blue-light) 100%);
         color: white;
-        border-radius: 20px;
+        border-radius: 24px;
         padding: 3rem 2rem;
         margin-bottom: 2rem;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 20px 60px rgba(30, 64, 175, 0.25);
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.25);
     }
 
     .quiz-hero::before {
@@ -42,14 +43,34 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--bnn-gold) 0%, white 50%, var(--bnn-accent) 100%);
+        height: 5px;
+        background: linear-gradient(90deg, var(--bnn-yellow) 0%, white 50%, var(--bnn-blue-light) 100%);
     }
 
     .quiz-hero h1 {
-        font-weight: 800;
+        font-weight: 700;
         margin-bottom: 1rem;
         font-size: 2.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .quiz-hero h1 i {
+        color: white;
+        padding: 0.75rem;
+        background: rgba(255,255,255,0.15);
+        border-radius: 50%;
+        box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+        font-size: 1.5rem;
+        border: 3px solid rgba(255,255,255,0.3);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+
+    .quiz-hero h1 i:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
     }
 
     .quiz-hero .lead {
@@ -74,10 +95,10 @@
     }
     
     .info-card {
-        background: white;
+        background: var(--bnn-white);
         border-radius: 20px;
         border: none;
-        box-shadow: 0 10px 40px rgba(30, 64, 175, 0.08);
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.08);
         transition: all 0.3s ease;
         overflow: hidden;
         position: relative;
@@ -91,14 +112,14 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, var(--bnn-primary) 0%, var(--bnn-accent) 100%);
+        background: linear-gradient(90deg, var(--bnn-blue-dark) 0%, var(--bnn-blue-light) 100%);
         transform: scaleX(0);
         transition: transform 0.3s ease;
     }
 
     .info-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 20px 60px rgba(30, 64, 175, 0.15);
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.15);
     }
 
     .info-card:hover::before {
@@ -122,11 +143,11 @@
     }
 
     .icon-wrapper.bg-primary {
-        background: linear-gradient(135deg, var(--bnn-primary) 0%, var(--bnn-secondary) 100%);
+        background: linear-gradient(135deg, var(--bnn-blue-dark) 0%, var(--bnn-blue-light) 100%);
     }
 
     .icon-wrapper.bg-warning {
-        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        background: linear-gradient(135deg, var(--bnn-yellow) 0%, #d97706 100%);
     }
 
     .icon-wrapper.bg-info {
@@ -134,7 +155,7 @@
     }
 
     .icon-wrapper.bg-success {
-        background: linear-gradient(135deg, var(--bnn-accent) 0%, #10b981 100%);
+        background: linear-gradient(135deg, var(--bnn-success) 0%, #10b981 100%);
     }
 
     .info-card h3 {
@@ -144,17 +165,17 @@
     }
 
     .info-card p {
-        color: #64748b;
+        color: var(--bnn-gray-dark);
         font-weight: 500;
         font-size: 0.9rem;
         margin: 0;
     }
 
     .rules-card, .preview-card {
-        background: white;
+        background: var(--bnn-white);
         border-radius: 20px;
         border: none;
-        box-shadow: 0 10px 40px rgba(30, 64, 175, 0.08);
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.08);
         overflow: hidden;
         position: relative;
         height: 100%;
@@ -167,18 +188,18 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, var(--bnn-primary) 0%, var(--bnn-accent) 100%);
+        background: linear-gradient(90deg, var(--bnn-blue-dark) 0%, var(--bnn-blue-light) 100%);
     }
 
     .rules-card .card-header, .preview-card .card-header {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        background: linear-gradient(135deg, var(--bnn-blue-soft) 0%, #bfdbfe 100%);
         border: none;
         padding: 1.5rem 2rem;
     }
 
     .rules-card .card-header h5, .preview-card .card-header h5 {
-        color: var(--bnn-dark);
-        font-weight: 700;
+        color: var(--bnn-blue-dark);
+        font-weight: 600;
         margin: 0;
         display: flex;
         align-items: center;
@@ -186,7 +207,7 @@
     }
 
     .rules-card .card-header i, .preview-card .card-header i {
-        color: var(--bnn-primary);
+        color: var(--bnn-blue-light);
     }
 
     .rules-card .card-body, .preview-card .card-body {
@@ -194,15 +215,15 @@
     }
     
     .quiz-rules {
-        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-        border-left: 4px solid var(--bnn-primary);
+        background: linear-gradient(135deg, var(--bnn-blue-soft) 0%, #bfdbfe 100%);
+        border-left: 5px solid var(--bnn-blue-dark);
         padding: 1.5rem;
-        border-radius: 0 15px 15px 0;
+        border-radius: 0 16px 16px 0;
         margin-bottom: 1.5rem;
     }
 
     .quiz-rules h6 {
-        color: var(--bnn-dark);
+        color: var(--bnn-blue-dark);
         font-weight: 600;
         margin-bottom: 1rem;
         display: flex;
@@ -211,11 +232,11 @@
     }
 
     .quiz-rules h6 i {
-        color: var(--bnn-primary);
+        color: var(--bnn-blue-light);
     }
 
     .quiz-rules ul li {
-        color: #64748b;
+        color: var(--bnn-gray-dark);
         margin-bottom: 0.75rem;
         display: flex;
         align-items: center;
@@ -224,14 +245,14 @@
     }
 
     .quiz-rules ul li i {
-        color: var(--bnn-accent);
+        color: var(--bnn-blue-light);
         flex-shrink: 0;
     }
 
     .alert-modern {
         background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-        border: 1px solid #f59e0b;
-        border-radius: 15px;
+        border: 1px solid var(--bnn-yellow);
+        border-radius: 16px;
         padding: 1.25rem;
         margin-top: 1rem;
     }
@@ -248,10 +269,10 @@
     .alert-completed {
         background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
         border: 2px solid #f87171;
-        border-radius: 15px;
+        border-radius: 16px;
         padding: 1.5rem;
         margin-bottom: 1.5rem;
-        color: #dc2626;
+        color: var(--bnn-danger);
     }
 
     .alert-completed i {
@@ -269,21 +290,21 @@
     }
     
     .sample-question {
-        border-left: 4px solid var(--bnn-primary);
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border-left: 5px solid var(--bnn-blue-dark);
+        background: linear-gradient(135deg, var(--bnn-blue-soft) 0%, #bfdbfe 100%);
         padding: 1.5rem;
-        border-radius: 0 15px 15px 0;
+        border-radius: 0 16px 16px 0;
         margin-bottom: 1.5rem;
         transition: all 0.3s ease;
     }
 
     .sample-question:hover {
         transform: translateX(4px);
-        box-shadow: 0 8px 25px rgba(30, 64, 175, 0.1);
+        box-shadow: 0 6px 20px rgba(30, 58, 138, 0.15);
     }
 
     .sample-question h6 {
-        color: var(--bnn-primary);
+        color: var(--bnn-blue-dark);
         font-weight: 600;
         margin-bottom: 1rem;
         display: flex;
@@ -292,14 +313,14 @@
     }
 
     .sample-question p {
-        color: var(--bnn-dark);
+        color: var(--bnn-blue-dark);
         font-weight: 500;
         margin-bottom: 1rem;
         line-height: 1.5;
     }
 
     .sample-question small {
-        color: #64748b;
+        color: var(--bnn-gray-dark);
         font-size: 0.85rem;
         display: flex;
         align-items: center;
@@ -308,10 +329,10 @@
     }
 
     .history-card {
-        background: white;
+        background: var(--bnn-white);
         border-radius: 20px;
         border: none;
-        box-shadow: 0 10px 40px rgba(30, 64, 175, 0.08);
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.08);
         overflow: hidden;
         position: relative;
         margin-bottom: 2rem;
@@ -324,18 +345,18 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, var(--bnn-primary) 0%, var(--bnn-accent) 100%);
+        background: linear-gradient(90deg, var(--bnn-blue-dark) 0%, var(--bnn-blue-light) 100%);
     }
 
     .history-card .card-header {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        background: linear-gradient(135deg, var(--bnn-blue-soft) 0%, #bfdbfe 100%);
         border: none;
         padding: 1.5rem 2rem;
     }
 
     .history-card .card-header h5 {
-        color: var(--bnn-dark);
-        font-weight: 700;
+        color: var(--bnn-blue-dark);
+        font-weight: 600;
         margin: 0;
         display: flex;
         align-items: center;
@@ -343,7 +364,7 @@
     }
 
     .history-card .card-header i {
-        color: var(--bnn-primary);
+        color: var(--bnn-blue-light);
     }
 
     .table {
@@ -351,8 +372,8 @@
     }
 
     .table th {
-        background: #f8fafc;
-        color: var(--bnn-dark);
+        background: var(--bnn-blue-soft);
+        color: var(--bnn-blue-dark);
         font-weight: 600;
         border: none;
         padding: 1rem;
@@ -366,16 +387,16 @@
 
     .badge {
         padding: 0.5rem 1rem;
-        border-radius: 15px;
+        border-radius: 12px;
         font-weight: 600;
         font-size: 0.8rem;
     }
 
     .start-quiz-card {
-        background: white;
+        background: var(--bnn-white);
         border-radius: 20px;
         border: none;
-        box-shadow: 0 10px 40px rgba(30, 64, 175, 0.08);
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.08);
         overflow: hidden;
         position: relative;
     }
@@ -387,7 +408,7 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, var(--bnn-primary) 0%, var(--bnn-accent) 100%);
+        background: linear-gradient(90deg, var(--bnn-blue-dark) 0%, var(--bnn-blue-light) 100%);
     }
 
     .start-quiz-card .card-body {
@@ -396,28 +417,28 @@
     }
 
     .start-quiz-card h4 {
-        color: var(--bnn-dark);
-        font-weight: 700;
+        color: var(--bnn-blue-dark);
+        font-weight: 600;
         margin-bottom: 1rem;
     }
 
     .start-quiz-card p {
-        color: #64748b;
+        color: var(--bnn-gray-dark);
         font-size: 1rem;
         line-height: 1.6;
     }
     
     .start-button {
-        background: linear-gradient(135deg, var(--bnn-accent) 0%, #10b981 100%);
+        background: linear-gradient(135deg, var(--bnn-success) 0%, #10b981 100%);
         border: none;
-        border-radius: 15px;
+        border-radius: 12px;
         padding: 1rem 2.5rem;
         font-size: 1.1rem;
-        font-weight: 700;
+        font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 1px;
         transition: all 0.3s ease;
-        box-shadow: 0 8px 25px rgba(5, 150, 105, 0.3);
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
         color: white;
         position: relative;
         overflow: hidden;
@@ -435,8 +456,8 @@
     }
 
     .start-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 35px rgba(5, 150, 105, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 24px rgba(16, 185, 129, 0.4);
         color: white;
     }
 
@@ -447,7 +468,7 @@
     /* Disabled button styles */
     .start-button:disabled,
     .btn-disabled {
-        background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+        background: linear-gradient(135deg, var(--bnn-gray-light) 0%, var(--bnn-gray-dark) 100%);
         cursor: not-allowed;
         transform: none !important;
         box-shadow: none !important;
@@ -460,20 +481,20 @@
     }
 
     .alert-info-modern {
-        background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-        border: 1px solid #60a5fa;
-        border-radius: 15px;
+        background: linear-gradient(135deg, var(--bnn-blue-soft) 0%, #bfdbfe 100%);
+        border: 1px solid var(--bnn-blue-light);
+        border-radius: 16px;
         padding: 1.25rem;
         margin-bottom: 1.5rem;
-        color: #1e40af;
+        color: var(--bnn-blue-dark);
     }
 
     .alert-info-modern i {
-        color: #2563eb;
+        color: var(--bnn-blue-light);
     }
 
     .btn-modern {
-        background: linear-gradient(135deg, var(--bnn-primary) 0%, var(--bnn-secondary) 100%);
+        background: linear-gradient(135deg, var(--bnn-blue-dark) 0%, var(--bnn-blue-light) 100%);
         border: none;
         color: white;
         border-radius: 12px;
@@ -484,19 +505,20 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
+        box-shadow: 0 4px 16px rgba(30, 58, 138, 0.2);
     }
 
     .btn-modern:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
+        box-shadow: 0 6px 24px rgba(30, 58, 138, 0.3);
         color: white;
         text-decoration: none;
     }
 
     .btn-outline-modern {
-        background: white;
-        border: 2px solid #e2e8f0;
-        color: #64748b;
+        background: var(--bnn-white);
+        border: 2px solid var(--bnn-blue-soft);
+        color: var(--bnn-gray-dark);
         border-radius: 12px;
         padding: 0.875rem 1.5rem;
         font-weight: 600;
@@ -508,15 +530,15 @@
     }
 
     .btn-outline-modern:hover {
-        border-color: var(--bnn-primary);
-        color: var(--bnn-primary);
+        border-color: var(--bnn-blue-dark);
+        color: var(--bnn-blue-dark);
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(30, 64, 175, 0.1);
+        box-shadow: 0 4px 16px rgba(30, 58, 138, 0.1);
         text-decoration: none;
     }
 
     .btn-outline-modern.btn-outline-primary:hover {
-        background: var(--bnn-primary);
+        background: var(--bnn-blue-dark);
         color: white;
     }
 
@@ -529,10 +551,10 @@
     .empty-state {
         text-align: center;
         padding: 3rem 2rem;
-        background: white;
+        background: var(--bnn-white);
         border-radius: 20px;
-        box-shadow: 0 10px 40px rgba(30, 64, 175, 0.08);
-        border: 2px dashed #e2e8f0;
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.08);
+        border: 2px dashed var(--bnn-blue-soft);
     }
 
     .empty-state-icon {
@@ -552,13 +574,13 @@
     }
 
     .empty-state h5 {
-        color: var(--bnn-dark);
+        color: var(--bnn-blue-dark);
         font-weight: 600;
         margin-bottom: 1rem;
     }
 
     .empty-state p {
-        color: #64748b;
+        color: var(--bnn-gray-dark);
         font-size: 1rem;
         margin-bottom: 2rem;
     }
@@ -593,11 +615,45 @@
         margin-top: 1rem;
     }
 
+    .tips-section {
+        background: linear-gradient(135deg, var(--bnn-blue-soft) 0%, #bfdbfe 100%);
+        border-radius: 20px;
+        padding: 1.75rem;
+        border: 1px solid rgba(59, 130, 246, 0.1);
+        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.05);
+    }
+
+    .tips-icon {
+        background: var(--bnn-blue-light);
+        color: var(--bnn-white);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+        flex-shrink: 0;
+    }
+
+    .tips-section h6 {
+        color: var(--bnn-blue-dark);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .tips-section p {
+        color: var(--bnn-blue-dark);
+        margin: 0;
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
     /* Animation */
     @keyframes fadeInUp {
         from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
         }
         to {
             opacity: 1;
@@ -616,6 +672,10 @@
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
+        .quiz-header {
+            padding: 2rem;
+        }
+
         .quiz-hero {
             padding: 2rem 1.5rem;
             text-align: center;
@@ -623,6 +683,13 @@
 
         .quiz-hero h1 {
             font-size: 2rem;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .quiz-hero h1 i {
+            font-size: 1.2rem;
+            padding: 0.6rem;
         }
 
         .quiz-hero .lead {
@@ -665,6 +732,20 @@
 
         .hero-icon-wrapper i {
             font-size: 2rem;
+        }
+
+        .tips-section {
+            padding: 1.5rem;
+        }
+
+        .tips-section .d-flex {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        .tips-icon {
+            margin: 0 auto;
         }
     }
 </style>
@@ -950,21 +1031,22 @@
                                 <tr>
                                     <td style="color: var(--bnn-dark); font-weight: 500;">{{ $attempt->created_at->format('d/m/Y H:i') }}</td>
                                     <td>
-                                        <span class="badge" style="background: var(--bnn-primary); color: white;">{{ number_format($attempt->score, 0) }}%</span>
+                                        <span class="badge" style="background: var(--bnn-primary); color: rgb(0, 0, 0);">{{ number_format($attempt->score, 0) }}%</span>
                                     </td>
                                     <td style="color: var(--bnn-dark); font-weight: 500;">{{ $attempt->correct_answers }}/{{ $attempt->total_questions }}</td>
                                     <td>
-                                        @php
-                                            $gradeClass = $attempt->score >= 80 ? 'var(--bnn-accent)' : 
-                                                         ($attempt->score >= 70 ? '#06b6d4' : 
-                                                         ($attempt->score >= 60 ? '#f59e0b' : '#ef4444'));
-                                            $gradeText = $attempt->score >= 80 ? 'Sangat Baik' : 
-                                                        ($attempt->score >= 70 ? 'Baik' : 
-                                                        ($attempt->score >= 60 ? 'Cukup' : 'Perlu Belajar Lagi'));
-                                        @endphp
-                                        <span class="badge" style="background: {{ $gradeClass }}; color: white;">
-                                            {{ $gradeText }}
-                                        </span>
+                                    @php
+                                        $gradeClass = $attempt->score >= 80 ? 'var(--bnn-accent)' : 
+                                                    ($attempt->score >= 70 ? '#06b6d4' : 
+                                                    ($attempt->score >= 60 ? '#f59e0b' : '#ef4444'));
+                                        $gradeText = $attempt->score >= 80 ? 'Sangat Baik' : 
+                                                    ($attempt->score >= 70 ? 'Baik' : 
+                                                    ($attempt->score >= 60 ? 'Cukup' : 'Perlu Belajar Lagi'));
+                                    @endphp
+
+                                    <span style="color: {{ $gradeClass }}; font-weight: 500;">
+    {{ $gradeText }}
+</span>
                                     </td>
                                     <td>
                                         <a href="{{ route('quiz.result', [$quiz, $attempt]) }}" 

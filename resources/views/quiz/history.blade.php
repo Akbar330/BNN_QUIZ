@@ -4,14 +4,26 @@
 
 @push('styles')
 <style>
+    :root {
+        --bnn-primary: #1e3a8a;        /* Biru tua untuk primary */
+        --bnn-secondary: #3b82f6;      /* Biru muda untuk secondary */
+        --bnn-accent: #10b981;         /* Hijau untuk aksen */
+        --bnn-warning: #f59e0b;        /* Kuning untuk warning */
+        --bnn-danger: #ef4444;         /* Merah untuk danger */
+        --bnn-dark: #374151;           /* Abu-abu gelap untuk teks */
+        --bnn-white: #ffffff;
+        --bnn-gray-light: #f8fafc;
+    }
+
     .history-header {
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        border-radius: 20px;
-        padding: 2rem;
+        background: linear-gradient(135deg, var(--bnn-white) 0%, var(--bnn-blue-soft) 100%);
+        border-radius: 24px;
+        padding: 2.5rem;
         margin-bottom: 2rem;
-        border: 1px solid #e2e8f0;
+        border: none;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.08);
     }
 
     .history-header::before {
@@ -20,31 +32,41 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--bnn-accent) 0%, var(--bnn-gold) 50%, var(--bnn-primary) 100%);
+        height: 5px;
+        background: linear-gradient(
+            90deg,
+            var(--bnn-blue-dark) 0%,
+            var(--bnn-blue-light) 30%,
+            var(--bnn-yellow) 50%,
+            var(--bnn-blue-light) 70%,
+            var(--bnn-blue-dark) 100%
+        );
     }
 
     .history-header h2 {
-        color: var(--bnn-dark);
-        font-weight: 700;
-        margin-bottom: 0.5rem;
+        color: var(--bnn-primary);
+        font-weight: 600;
+        margin-bottom: 0.75rem;
         display: flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 1rem;
+        font-size: 1.8rem;
     }
 
     .history-header h2 i {
-        color: var(--bnn-accent);
-        padding: 0.5rem;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(5, 150, 105, 0.1);
+        color: var(--bnn-secondary);
+        padding: 0.75rem;
+        background: var(--bnn-white);
+        border-radius: 50%;
+        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
     }
 
     .history-header p {
         color: #64748b;
-        font-size: 1.1rem;
         margin: 0;
+        font-size: 1rem;
     }
 
     .btn-new-quiz {
@@ -68,6 +90,52 @@
         text-decoration: none;
     }
 
+    .stats-summary {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border: 1px solid #bae6fd;
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.06);
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 1.5rem;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(30, 64, 175, 0.08);
+        transition: all 0.3s ease;
+        border: 1px solid #f1f5f9;
+    }
+
+    .stat-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(30, 64, 175, 0.12);
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--bnn-primary);
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 500;
+    }
+
     .history-card {
         background: white;
         border-radius: 20px;
@@ -83,12 +151,13 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 3px;
+        height: 4px;
         background: linear-gradient(90deg, var(--bnn-accent) 0%, var(--bnn-primary) 100%);
     }
 
     .history-table {
         margin: 0;
+        font-size: 0.95rem;
     }
 
     .history-table thead th {
@@ -97,10 +166,16 @@
         color: var(--bnn-dark);
         font-weight: 600;
         font-size: 0.9rem;
-        padding: 1.2rem 1rem;
+        padding: 1.5rem 1.25rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
         border-bottom: 2px solid #e2e8f0;
+        position: relative;
+    }
+
+    .history-table thead th i {
+        color: var(--bnn-primary);
+        margin-right: 0.5rem;
     }
 
     .history-table tbody tr {
@@ -110,11 +185,12 @@
 
     .history-table tbody tr:hover {
         background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        transform: translateX(4px);
+        transform: translateX(6px);
+        box-shadow: 0 4px 20px rgba(30, 64, 175, 0.08);
     }
 
     .history-table tbody td {
-        padding: 1.2rem 1rem;
+        padding: 1.5rem 1.25rem;
         border: none;
         border-bottom: 1px solid #f1f5f9;
         vertical-align: middle;
@@ -124,12 +200,12 @@
         font-weight: 600;
         color: var(--bnn-dark);
         font-size: 1rem;
+        margin-bottom: 0.25rem;
     }
 
     .quiz-meta {
         color: #64748b;
         font-size: 0.85rem;
-        margin-top: 0.25rem;
         display: flex;
         align-items: center;
         gap: 0.5rem;
@@ -137,17 +213,18 @@
 
     .quiz-meta i {
         color: var(--bnn-primary);
-        width: 12px;
+        width: 14px;
     }
 
     .date-cell {
-        font-weight: 500;
+        font-weight: 600;
         color: var(--bnn-dark);
+        font-size: 0.95rem;
     }
 
     .date-time {
         color: #64748b;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         margin-top: 0.25rem;
     }
 
@@ -155,12 +232,20 @@
         background: linear-gradient(135deg, var(--bnn-primary) 0%, var(--bnn-secondary) 100%);
         color: white;
         font-weight: 700;
-        font-size: 1.1rem;
-        padding: 0.5rem 1rem;
-        border-radius: 15px;
+        font-size: 1.2rem;
+        padding: 0.6rem 1.2rem;
+        border-radius: 16px;
         display: inline-block;
-        min-width: 60px;
+        min-width: 70px;
         text-align: center;
+        box-shadow: 0 4px 16px rgba(30, 64, 175, 0.2);
+    }
+
+    .answers-stats {
+        font-weight: 600;
+        color: var(--bnn-dark);
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
     }
 
     .progress-container {
@@ -168,17 +253,18 @@
     }
 
     .progress-custom {
-        height: 8px;
+        height: 10px;
         background: #e2e8f0;
-        border-radius: 10px;
+        border-radius: 12px;
         overflow: hidden;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .progress-bar-custom {
         height: 100%;
         background: linear-gradient(90deg, var(--bnn-accent) 0%, var(--bnn-primary) 100%);
-        border-radius: 10px;
-        transition: width 0.6s ease;
+        border-radius: 12px;
+        transition: width 0.8s ease;
         position: relative;
     }
 
@@ -198,59 +284,57 @@
         100% { transform: translateX(100%); }
     }
 
-    .answers-stats {
-        font-weight: 600;
-        color: var(--bnn-dark);
-        font-size: 0.95rem;
-    }
-
     .grade-badge {
         font-weight: 600;
         font-size: 0.85rem;
-        padding: 0.4rem 0.8rem;
+        padding: 0.5rem 1rem;
         border-radius: 12px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .grade-success {
-        background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-        color: #15803d;
+        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        color: #065f46;
         border: 1px solid #86efac;
     }
 
     .grade-info {
-        background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
         color: #1d4ed8;
         border: 1px solid #93c5fd;
     }
 
     .grade-warning {
-        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
         color: #d97706;
         border: 1px solid #fcd34d;
     }
 
     .grade-danger {
-        background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
+        background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
         color: #dc2626;
         border: 1px solid #f87171;
     }
 
     .btn-detail {
-        background: linear-gradient(135deg, var(--bnn-accent) 0%, var(--bnn-primary) 100%);
+        background: linear-gradient(135deg, var(--bnn-accent) 0%, #059669 100%);
         border: none;
         color: white;
-        border-radius: 10px;
-        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        padding: 0.6rem 1.2rem;
         font-weight: 500;
         font-size: 0.85rem;
         transition: all 0.3s ease;
         text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
     .btn-detail:hover {
-        transform: translateY(-1px);
+        transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(5, 150, 105, 0.3);
         color: white;
         text-decoration: none;
@@ -267,8 +351,8 @@
     }
 
     .empty-state-icon-history {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
         border-radius: 50%;
         display: flex;
@@ -293,7 +377,7 @@
     }
 
     .empty-state-icon-history i {
-        font-size: 2.5rem;
+        font-size: 3rem;
         color: #64748b;
     }
 
@@ -311,74 +395,89 @@
         line-height: 1.6;
     }
 
-    .stats-summary {
-        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-        border: 1px solid #bae6fd;
+    .learning-analysis {
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-top: 2rem;
+        border: 1px solid #bbf7d0;
+        box-shadow: 0 8px 32px rgba(16, 185, 129, 0.08);
     }
 
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1rem;
+    .learning-analysis-content {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
     }
 
-    .stat-item {
-        text-align: center;
-        padding: 1rem;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(30, 64, 175, 0.05);
+    .learning-icon {
+        background: var(--bnn-accent);
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2);
+        flex-shrink: 0;
     }
 
-    .stat-number {
-        font-size: 2rem;
-        font-weight: 700;
-        color: var(--bnn-primary);
-        display: block;
-        margin-bottom: 0.25rem;
+    .learning-icon i {
+        font-size: 1.5rem;
     }
 
-    .stat-label {
-        font-size: 0.8rem;
-        color: #64748b;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        font-weight: 500;
+    .learning-text h6 {
+        color: var(--bnn-dark);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
     }
 
+    .learning-text p {
+        color: #15803d;
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    /* Pagination Styling */
     .pagination {
         justify-content: center;
         margin-top: 2rem;
+        gap: 0.5rem;
     }
 
-    .page-link {
+    .page-item .page-link {
         border: 2px solid #e2e8f0;
         color: var(--bnn-primary);
         font-weight: 500;
-        border-radius: 10px;
-        margin: 0 2px;
+        border-radius: 12px;
+        padding: 0.75rem 1rem;
         transition: all 0.3s ease;
+        text-decoration: none;
     }
 
-    .page-link:hover {
+    .page-item .page-link:hover {
         background: var(--bnn-primary);
         border-color: var(--bnn-primary);
-        transform: translateY(-1px);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(30, 64, 175, 0.2);
     }
 
     .page-item.active .page-link {
         background: linear-gradient(135deg, var(--bnn-primary) 0%, var(--bnn-secondary) 100%);
         border-color: var(--bnn-primary);
+        color: white;
+        box-shadow: 0 4px 16px rgba(30, 64, 175, 0.3);
     }
 
-    /* Animation */
+    /* Animation Effects */
     @keyframes fadeInUp {
         from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
         }
         to {
             opacity: 1;
@@ -387,11 +486,15 @@
     }
 
     .history-card {
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    .stats-summary {
         animation: fadeInUp 0.6s ease-out;
     }
 
     .history-table tbody tr {
-        animation: fadeInUp 0.4s ease-out;
+        animation: fadeInUp 0.5s ease-out;
     }
 
     .history-table tbody tr:nth-child(2) { animation-delay: 0.1s; }
@@ -402,20 +505,21 @@
     /* Mobile Responsive */
     @media (max-width: 768px) {
         .history-header {
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
             margin-bottom: 1.5rem;
         }
 
         .history-header h2 {
             font-size: 1.5rem;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.75rem;
             text-align: center;
         }
 
-        .d-flex.justify-content-between {
+        .header-content {
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.5rem;
+            text-align: center;
         }
 
         .btn-new-quiz {
@@ -423,39 +527,30 @@
             justify-content: center;
         }
 
-        .table-responsive {
-            border-radius: 15px;
-        }
-
         .stats-grid {
             grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
         }
 
-        .empty-state-history {
-            padding: 3rem 1rem;
+        .stat-item {
+            padding: 1rem;
         }
 
-        .empty-state-icon-history {
-            width: 80px;
-            height: 80px;
-        }
-
-        .empty-state-icon-history i {
+        .stat-number {
             font-size: 2rem;
         }
 
-        /* Mobile table styling */
         .history-table {
             font-size: 0.85rem;
         }
 
         .history-table thead th {
-            padding: 1rem 0.5rem;
+            padding: 1rem 0.75rem;
             font-size: 0.8rem;
         }
 
         .history-table tbody td {
-            padding: 1rem 0.5rem;
+            padding: 1rem 0.75rem;
         }
 
         .quiz-title-cell {
@@ -467,8 +562,17 @@
         }
 
         .btn-detail {
-            padding: 0.4rem 0.8rem;
+            padding: 0.5rem 0.8rem;
             font-size: 0.8rem;
+        }
+
+        .learning-analysis {
+            padding: 1.5rem;
+        }
+
+        .learning-analysis-content {
+            flex-direction: column;
+            text-align: center;
         }
     }
 
@@ -482,8 +586,21 @@
         }
         
         .score-badge {
-            font-size: 0.9rem;
-            padding: 0.4rem 0.8rem;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+        }
+
+        .empty-state-history {
+            padding: 3rem 1rem;
+        }
+
+        .empty-state-icon-history {
+            width: 100px;
+            height: 100px;
+        }
+
+        .empty-state-icon-history i {
+            font-size: 2.5rem;
         }
     }
 </style>
@@ -491,7 +608,7 @@
 
 @section('content')
 <div class="history-header">
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center header-content">
         <div>
             <h2>
                 <i class="fas fa-history"></i> 
@@ -499,10 +616,10 @@
             </h2>
             <p>Lihat progres dan hasil quiz yang telah Anda ikuti</p>
         </div>
-        <a href="{{ route('quiz.index') }}" class="btn btn-new-quiz">
+        {{-- <a href="{{ route('quiz.index') }}" class="btn btn-new-quiz">
             <i class="fas fa-plus"></i> 
             Quiz Baru
-        </a>
+        </a> --}}
     </div>
 </div>
 
@@ -538,12 +655,12 @@
                         <table class="table history-table">
                             <thead>
                                 <tr>
-                                    <th><i class="fas fa-clipboard-question me-2"></i>Quiz</th>
-                                    <th><i class="fas fa-calendar me-2"></i>Tanggal</th>
-                                    <th><i class="fas fa-star me-2"></i>Skor</th>
-                                    <th><i class="fas fa-check me-2"></i>Benar/Total</th>
-                                    <th><i class="fas fa-award me-2"></i>Status</th>
-                                    <th><i class="fas fa-eye me-2"></i>Aksi</th>
+                                    <th><i class="fas fa-clipboard-question"></i>Quiz</th>
+                                    <th><i class="fas fa-calendar"></i>Tanggal</th>
+                                    <th><i class="fas fa-star"></i>Skor</th>
+                                    <th><i class="fas fa-check"></i>Benar/Total</th>
+                                    <th><i class="fas fa-award"></i>Status</th>
+                                    <th><i class="fas fa-eye"></i>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -600,7 +717,7 @@
                                     <td>
                                         <a href="{{ route('quiz.result', [$attempt->quiz, $attempt]) }}" 
                                            class="btn btn-detail">
-                                            <i class="fas fa-search me-1"></i> 
+                                            <i class="fas fa-search"></i> 
                                             Detail
                                         </a>
                                     </td>
@@ -610,7 +727,7 @@
                         </table>
                     </div>
                     
-                    <div style="padding: 1rem 2rem;">
+                    <div style="padding: 2rem;">
                         {{ $attempts->links() }}
                     </div>
                 @else
@@ -623,7 +740,7 @@
                         Mulai perjalanan edukasi Anda sekarang juga!</p>
                         
                         <a href="{{ route('quiz.index') }}" class="btn btn-new-quiz">
-                            <i class="fas fa-play me-2"></i> 
+                            <i class="fas fa-play"></i> 
                             Ikuti Quiz Pertama
                         </a>
                     </div>
@@ -634,18 +751,16 @@
 </div>
 
 @if($attempts->count() > 0)
-<div class="row mt-4">
+<div class="row">
     <div class="col-12">
-        <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 15px; padding: 1.5rem; border: 1px solid #bbf7d0;">
-            <div class="d-flex align-items-center gap-1rem">
-                <div style="background: var(--bnn-accent); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+        <div class="learning-analysis">
+            <div class="learning-analysis-content">
+                <div class="learning-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
-                <div style="flex: 1;">
-                    <h6 style="color: var(--bnn-dark); font-weight: 600; margin-bottom: 0.5rem;">Analisis Pembelajaran</h6>
-                    <p style="color: #15803d; margin: 0; font-size: 0.9rem;">
-                        Terus tingkatkan pengetahuan Anda tentang bahaya narkoba. Semakin banyak quiz yang Anda ikuti, semakin baik pemahaman Anda tentang pencegahan narkoba.
-                    </p>
+                <div class="learning-text">
+                    <h6>Analisis Pembelajaran</h6>
+                    <p>Terus tingkatkan pengetahuan Anda tentang bahaya narkoba. Semakin banyak quiz yang Anda ikuti, semakin baik pemahaman Anda tentang pencegahan narkoba.</p>
                 </div>
             </div>
         </div>
