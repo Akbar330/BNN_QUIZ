@@ -1,4 +1,3 @@
-<!-- resources/views/quiz/take.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Mengerjakan Quiz: ' . $quiz->title)
@@ -6,13 +5,14 @@
 @push('styles')
 <style>
     .quiz-header {
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        border-radius: 20px;
-        padding: 2rem;
+        background: linear-gradient(135deg, var(--bnn-white) 0%, var(--bnn-blue-soft) 100%);
+        border-radius: 24px;
+        padding: 2.5rem;
         margin-bottom: 2rem;
-        border: 1px solid #e2e8f0;
+        border: none;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.08);
     }
 
     .quiz-header::before {
@@ -21,31 +21,40 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--bnn-primary) 0%, var(--bnn-gold) 50%, var(--bnn-accent) 100%);
+        height: 5px;
+        background: linear-gradient(90deg, var(--bnn-blue-dark) 0%, var(--bnn-blue-light) 30%, var(--bnn-yellow) 50%, var(--bnn-blue-light) 70%, var(--bnn-blue-dark) 100%);
     }
 
     .quiz-header h2 {
-        color: var(--bnn-dark);
-        font-weight: 700;
-        margin-bottom: 0.5rem;
+        color: var(--bnn-blue-dark);
+        font-weight: 600;
+        margin-bottom: 0.75rem;
         display: flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 1rem;
+        font-size: 1.8rem;
     }
 
     .quiz-header h2 i {
-        color: var(--bnn-primary);
-        padding: 0.5rem;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(30, 64, 175, 0.1);
+        color: var(--bnn-blue-light);
+        padding: 0.75rem;
+        background: var(--bnn-white);
+        border-radius: 50%;
+        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .quiz-header h2 i:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.2);
     }
 
     .quiz-header p {
-        color: #64748b;
+        color: var(--bnn-gray-dark);
         font-size: 1.1rem;
         margin: 0;
+        opacity: 0.8;
     }
 
     .timer {
@@ -55,10 +64,10 @@
     }
     
     .timer-card, .nav-card {
-        background: white;
+        background: var(--bnn-white);
         border-radius: 20px;
         border: none;
-        box-shadow: 0 10px 40px rgba(30, 64, 175, 0.08);
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.08);
         overflow: hidden;
         position: relative;
     }
@@ -70,7 +79,7 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, var(--bnn-primary) 0%, var(--bnn-accent) 100%);
+        background: linear-gradient(90deg, var(--bnn-blue-light) 0%, var(--bnn-blue-dark) 100%);
     }
 
     .timer-card .card-body {
@@ -79,9 +88,17 @@
     }
 
     .timer-card h6 {
-        color: var(--bnn-dark);
+        color: var(--bnn-blue-dark);
         font-weight: 600;
         margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .timer-card h6 i {
+        color: var(--bnn-blue-light);
     }
 
     .timer-display {
@@ -94,19 +111,19 @@
     }
 
     #timer-text {
-        color: var(--bnn-primary);
+        color: var(--bnn-blue-light);
         font-weight: 700;
         margin-top: 0.5rem;
     }
 
     .nav-card .card-header {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        background: linear-gradient(135deg, var(--bnn-blue-soft) 0%, #bfdbfe 100%);
         border: none;
         padding: 1.5rem;
     }
 
     .nav-card .card-header h6 {
-        color: var(--bnn-dark);
+        color: var(--bnn-blue-dark);
         font-weight: 600;
         margin: 0;
         display: flex;
@@ -115,7 +132,7 @@
     }
 
     .nav-card .card-header i {
-        color: var(--bnn-primary);
+        color: var(--bnn-blue-light);
     }
 
     .nav-card .card-body {
@@ -131,56 +148,58 @@
         border-radius: 12px;
         font-weight: 600;
         transition: all 0.3s ease;
-        border: 2px solid #e2e8f0;
+        border: 2px solid var(--bnn-blue-soft);
     }
 
     .question-nav-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(30, 64, 175, 0.1);
+        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
     }
 
     .question-nav-btn.btn-success {
-        background: linear-gradient(135deg, var(--bnn-accent) 0%, #10b981 100%);
+        background: linear-gradient(135deg, var(--bnn-success) 0%, #059669 100%);
         border-color: transparent;
-        color: white;
+        color: var(--bnn-white);
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
     }
 
     .question-nav-btn.btn-outline-secondary {
-        background: white;
-        color: #64748b;
+        background: var(--bnn-white);
+        color: var(--bnn-gray-dark);
+        border-color: var(--bnn-blue-soft);
     }
 
     .question-nav-btn.active {
-        background: linear-gradient(135deg, var(--bnn-primary) 0%, var(--bnn-secondary) 100%);
+        background: linear-gradient(135deg, var(--bnn-blue-light) 0%, var(--bnn-blue-dark) 100%);
         border-color: transparent;
-        color: white;
-        box-shadow: 0 4px 15px rgba(30, 64, 175, 0.2);
+        color: var(--bnn-white);
+        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
     }
 
     .question-card {
-        background: white;
+        background: var(--bnn-white);
         border-radius: 20px;
         border: none;
-        box-shadow: 0 10px 40px rgba(30, 64, 175, 0.08);
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.08);
         overflow: hidden;
         position: relative;
-        border-left: 4px solid #dee2e6;
+        border-left: 5px solid var(--bnn-blue-soft);
         transition: all 0.3s ease;
     }
 
     .question-card.answered {
-        border-left-color: var(--bnn-accent);
-        box-shadow: 0 10px 40px rgba(5, 150, 105, 0.1);
+        border-left-color: var(--bnn-success);
+        box-shadow: 0 8px 32px rgba(16, 185, 129, 0.1);
     }
 
     .question-card .card-header {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        background: linear-gradient(135deg, var(--bnn-blue-soft) 0%, #bfdbfe 100%);
         border: none;
         padding: 1.5rem 2rem;
     }
 
     .question-card .card-header h6 {
-        color: var(--bnn-dark);
+        color: var(--bnn-blue-dark);
         font-weight: 600;
         margin: 0;
     }
@@ -190,10 +209,11 @@
     }
 
     .question-card h5 {
-        color: var(--bnn-dark);
+        color: var(--bnn-blue-dark);
         font-weight: 600;
         line-height: 1.4;
         margin-bottom: 2rem;
+        font-size: 1.3rem;
     }
 
     .form-check {
@@ -212,10 +232,10 @@
 
     .option-container {
         padding: 1.25rem;
-        border: 2px solid #e2e8f0;
-        border-radius: 15px;
+        border: 2px solid var(--bnn-blue-soft);
+        border-radius: 16px;
         transition: all 0.3s ease;
-        background: white;
+        background: var(--bnn-white);
         position: relative;
         overflow: hidden;
     }
@@ -227,14 +247,14 @@
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(30, 64, 175, 0.05), transparent);
+        background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.05), transparent);
         transition: left 0.5s;
     }
 
     .option-container:hover {
-        border-color: var(--bnn-primary);
+        border-color: var(--bnn-blue-light);
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(30, 64, 175, 0.1);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.15);
     }
 
     .option-container:hover::before {
@@ -242,10 +262,10 @@
     }
 
     .form-check-input:checked + .form-check-label .option-container {
-        background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
-        border-color: var(--bnn-primary);
-        color: var(--bnn-dark);
-        box-shadow: 0 8px 25px rgba(30, 64, 175, 0.15);
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+        border-color: var(--bnn-blue-light);
+        color: var(--bnn-blue-dark);
+        box-shadow: 0 6px 24px rgba(59, 130, 246, 0.2);
     }
 
     .question-card .card-footer {
@@ -257,60 +277,99 @@
     .btn-secondary, .btn-primary, .btn-success {
         border-radius: 12px;
         padding: 0.875rem 1.5rem;
-        font-weight: 600;
+        font-weight: 500;
         transition: all 0.3s ease;
         border: none;
     }
 
     .btn-secondary {
-        background: linear-gradient(135deg, #64748b 0%, #475569 100%);
-        color: white;
+        background: linear-gradient(135deg, var(--bnn-gray-dark) 0%, #475569 100%);
+        color: var(--bnn-white);
+        box-shadow: 0 4px 16px rgba(71, 85, 105, 0.3);
     }
 
     .btn-secondary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(100, 116, 139, 0.3);
-        color: white;
+        box-shadow: 0 6px 24px rgba(71, 85, 105, 0.4);
+        color: var(--bnn-white);
     }
 
     .btn-primary {
-        background: linear-gradient(135deg, var(--bnn-primary) 0%, var(--bnn-secondary) 100%);
-        color: white;
+        background: linear-gradient(135deg, var(--bnn-blue-light) 0%, var(--bnn-blue-dark) 100%);
+        color: var(--bnn-white);
+        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
     }
 
     .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
-        color: white;
+        box-shadow: 0 6px 24px rgba(59, 130, 246, 0.4);
+        color: var(--bnn-white);
     }
 
     .btn-success {
-        background: linear-gradient(135deg, var(--bnn-accent) 0%, #10b981 100%);
-        color: white;
+        background: linear-gradient(135deg, var(--bnn-success) 0%, #059669 100%);
+        color: var(--bnn-white);
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
     }
 
     .btn-success:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(5, 150, 105, 0.3);
-        color: white;
+        box-shadow: 0 6px 24px rgba(16, 185, 129, 0.4);
+        color: var(--bnn-white);
     }
 
     .progress {
-        background: #e2e8f0;
-        border-radius: 10px;
+        background: var(--bnn-blue-soft);
+        border-radius: 12px;
         height: 8px;
+        overflow: hidden;
     }
 
     .progress-bar {
-        background: linear-gradient(90deg, var(--bnn-primary) 0%, var(--bnn-accent) 100%);
-        border-radius: 10px;
+        background: linear-gradient(90deg, var(--bnn-blue-light) 0%, var(--bnn-blue-dark) 100%);
+        border-radius: 12px;
+        transition: width 0.3s ease;
+    }
+
+    .tips-section {
+        background: linear-gradient(135deg, var(--bnn-blue-soft) 0%, #bfdbfe 100%);
+        border-radius: 20px;
+        padding: 1.75rem;
+        border: 1px solid rgba(59, 130, 246, 0.1);
+        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.05);
+    }
+
+    .tips-icon {
+        background: var(--bnn-blue-light);
+        color: var(--bnn-white);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+        flex-shrink: 0;
+    }
+
+    .tips-section h6 {
+        color: var(--bnn-blue-dark);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .tips-section p {
+        color: var(--bnn-blue-dark);
+        margin: 0;
+        font-size: 0.9rem;
+        opacity: 0.8;
     }
 
     /* Animation */
     @keyframes fadeInUp {
         from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
         }
         to {
             opacity: 1;
@@ -325,14 +384,19 @@
     /* Mobile Responsive */
     @media (max-width: 768px) {
         .quiz-header {
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         .quiz-header h2 {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.75rem;
             text-align: center;
+        }
+
+        .quiz-header h2 i {
+            font-size: 1.2rem;
+            padding: 0.6rem;
         }
 
         .timer {
@@ -368,6 +432,41 @@
         .option-container {
             padding: 1rem;
         }
+
+        .question-card h5 {
+            font-size: 1.2rem;
+        }
+
+        .tips-section {
+            padding: 1.5rem;
+        }
+
+        .tips-section .d-flex {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        .tips-icon {
+            margin: 0 auto;
+        }
+    }
+
+    /* Timer warning states */
+    .timer-warning .progress-ring circle:last-child {
+        stroke: var(--bnn-yellow) !important;
+    }
+
+    .timer-warning #timer-text {
+        color: var(--bnn-yellow) !important;
+    }
+
+    .timer-danger .progress-ring circle:last-child {
+        stroke: var(--bnn-danger) !important;
+    }
+
+    .timer-danger #timer-text {
+        color: var(--bnn-danger) !important;
     }
 </style>
 @endpush
@@ -390,8 +489,8 @@
                     <h6><i class="fas fa-clock"></i> Sisa Waktu</h6>
                     <div class="timer-display">
                         <svg width="80" height="80" class="progress-ring">
-                            <circle cx="40" cy="40" r="30" stroke="#e9ecef" stroke-width="4" fill="transparent"/>
-                            <circle id="timer-circle" cx="40" cy="40" r="30" stroke="var(--bnn-primary)" 
+                            <circle cx="40" cy="40" r="30" stroke="var(--bnn-blue-soft)" stroke-width="4" fill="transparent"/>
+                            <circle id="timer-circle" cx="40" cy="40" r="30" stroke="var(--bnn-blue-light)" 
                                     stroke-width="4" fill="transparent" stroke-dasharray="188.4" 
                                     stroke-dashoffset="0"/>
                         </svg>
@@ -492,14 +591,14 @@
 <!-- Tips Section -->
 <div class="row mt-4">
     <div class="col-12">
-        <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 15px; padding: 1.5rem; border: 1px solid #bae6fd;">
-            <div class="d-flex align-items-center gap-1rem">
-                <div style="background: var(--bnn-primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <div class="tips-section">
+            <div class="d-flex align-items-center gap-3">
+                <div class="tips-icon">
                     <i class="fas fa-lightbulb"></i>
                 </div>
-                <div style="flex: 1; margin-left: 1rem;">
-                    <h6 style="color: var(--bnn-dark); font-weight: 600; margin-bottom: 0.5rem;">Tips Mengerjakan Quiz</h6>
-                    <p style="color: #0369a1; margin: 0; font-size: 0.9rem;">
+                <div style="flex: 1;">
+                    <h6>Tips Mengerjakan Quiz</h6>
+                    <p>
                         Perhatikan sisa waktu di panel kiri, gunakan navigasi soal untuk melompat ke soal tertentu, dan pastikan semua soal terjawab sebelum submit.
                     </p>
                 </div>
@@ -520,6 +619,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Timer functionality
     const timerText = document.getElementById('timer-text');
     const timerCircle = document.getElementById('timer-circle');
+    const timerCard = document.querySelector('.timer-card');
     const circumference = 2 * Math.PI * 30;
     timerCircle.style.strokeDasharray = circumference;
     
@@ -532,13 +632,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const offset = circumference * progress;
         timerCircle.style.strokeDashoffset = offset;
         
+        // Remove previous warning classes
+        timerCard.classList.remove('timer-warning', 'timer-danger');
+        
         if (timeRemaining <= 300) { // 5 minutes warning
-            timerCircle.style.stroke = '#ffc107';
-            timerText.style.color = '#ffc107';
+            timerCard.classList.add('timer-warning');
         }
         if (timeRemaining <= 60) { // 1 minute warning
-            timerCircle.style.stroke = '#dc3545';
-            timerText.style.color = '#dc3545';
+            timerCard.classList.remove('timer-warning');
+            timerCard.classList.add('timer-danger');
         }
         
         if (timeRemaining <= 0) {

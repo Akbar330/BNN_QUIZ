@@ -6,13 +6,14 @@
 @push('styles')
 <style>
     .quiz-header {
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        background: linear-gradient(135deg, var(--bnn-white) 0%, var(--bnn-blue-soft) 100%);
         border-radius: 20px;
         padding: 2rem;
         margin-bottom: 2rem;
-        border: 1px solid #e2e8f0;
+        border: 1px solid rgba(59, 130, 246, 0.1);
         position: relative;
         overflow: hidden;
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.08);
     }
 
     .quiz-header::before {
@@ -22,11 +23,11 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, var(--bnn-primary) 0%, var(--bnn-gold) 50%, var(--bnn-accent) 100%);
+        background: linear-gradient(90deg, var(--bnn-blue-dark) 0%, var(--bnn-blue-light) 50%, var(--bnn-yellow) 100%);
     }
 
     .quiz-header h2 {
-        color: var(--bnn-dark);
+        color: var(--bnn-blue-dark);
         font-weight: 700;
         margin-bottom: 0.5rem;
         display: flex;
@@ -35,24 +36,25 @@
     }
 
     .quiz-header h2 i {
-        color: var(--bnn-primary);
+        color: var(--bnn-blue-light);
         padding: 0.5rem;
-        background: white;
+        background: var(--bnn-white);
         border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(30, 64, 175, 0.1);
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
     }
 
     .quiz-header p {
-        color: #64748b;
+        color: var(--bnn-gray-dark);
         font-size: 1.1rem;
         margin: 0;
+        opacity: 0.8;
     }
 
     .result-card {
-        background: linear-gradient(135deg, var(--bnn-primary) 0%, var(--bnn-secondary) 100%);
+        background: linear-gradient(135deg, var(--bnn-blue-dark) 0%, var(--bnn-blue-light) 100%);
         border-radius: 20px;
         border: none;
-        box-shadow: 0 20px 60px rgba(30, 64, 175, 0.25);
+        box-shadow: 0 20px 60px rgba(30, 58, 138, 0.25);
         color: white;
         position: relative;
         overflow: hidden;
@@ -65,7 +67,7 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, var(--bnn-gold) 0%, white 50%, var(--bnn-accent) 100%);
+        background: linear-gradient(90deg, var(--bnn-yellow) 0%, white 50%, var(--bnn-yellow-light) 100%);
     }
 
     .result-card .card-body {
@@ -91,7 +93,7 @@
         position: absolute;
         inset: -3px;
         border-radius: 50%;
-        background: linear-gradient(45deg, var(--bnn-gold), white, var(--bnn-accent));
+        background: linear-gradient(45deg, var(--bnn-yellow), white, var(--bnn-yellow-light));
         z-index: -1;
     }
 
@@ -126,10 +128,10 @@
     }
 
     .explanation-card {
-        background: white;
+        background: var(--bnn-white);
         border-radius: 20px;
         border: none;
-        box-shadow: 0 10px 40px rgba(30, 64, 175, 0.08);
+        box-shadow: 0 10px 40px rgba(30, 58, 138, 0.08);
         overflow: hidden;
         position: relative;
         margin-bottom: 2rem;
@@ -139,16 +141,16 @@
 
     .explanation-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 20px 60px rgba(30, 64, 175, 0.15);
+        box-shadow: 0 20px 60px rgba(30, 58, 138, 0.15);
     }
 
     .explanation-card.correct {
-        border-left-color: var(--bnn-accent);
-        background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+        border-left-color: var(--bnn-success);
+        background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
     }
 
     .explanation-card.incorrect {
-        border-left-color: #ef4444;
+        border-left-color: var(--bnn-danger);
         background: linear-gradient(135deg, #fef2f2 0%, #fefefe 100%);
     }
 
@@ -163,7 +165,7 @@
     }
 
     .explanation-card h6 {
-        color: var(--bnn-dark);
+        color: var(--bnn-blue-dark);
         font-weight: 600;
         margin-bottom: 1.5rem;
         font-size: 1.1rem;
@@ -175,16 +177,16 @@
         border-radius: 12px;
         margin-bottom: 0.75rem;
         transition: all 0.3s ease;
-        background: white;
+        background: var(--bnn-white);
     }
 
     .option-review.correct-answer {
-        border-color: var(--bnn-accent);
-        background: linear-gradient(135deg, rgba(5, 150, 105, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+        border-color: var(--bnn-success);
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%);
     }
 
     .option-review.user-wrong {
-        border-color: #ef4444;
+        border-color: var(--bnn-danger);
         background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(248, 113, 113, 0.05) 100%);
     }
 
@@ -193,15 +195,15 @@
     }
 
     .explanation-section {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        background: linear-gradient(135deg, var(--bnn-gray-light) 0%, var(--bnn-blue-soft) 100%);
         border-radius: 15px;
         padding: 1.5rem;
-        border: 1px solid #e2e8f0;
+        border: 1px solid rgba(59, 130, 246, 0.1);
         margin-top: 1rem;
     }
 
     .explanation-section h6 {
-        color: var(--bnn-dark);
+        color: var(--bnn-blue-dark);
         font-weight: 600;
         margin-bottom: 1rem;
         display: flex;
@@ -210,7 +212,7 @@
     }
 
     .explanation-section h6 i {
-        color: var(--bnn-primary);
+        color: var(--bnn-blue-light);
     }
 
     .answer-summary {
@@ -222,7 +224,7 @@
     }
 
     .btn-modern {
-        background: linear-gradient(135deg, var(--bnn-primary) 0%, var(--bnn-secondary) 100%);
+        background: linear-gradient(135deg, var(--bnn-blue-dark) 0%, var(--bnn-blue-light) 100%);
         border: none;
         color: white;
         border-radius: 12px;
@@ -233,19 +235,20 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
+        box-shadow: 0 4px 16px rgba(30, 58, 138, 0.2);
     }
 
     .btn-modern:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
+        box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
         color: white;
         text-decoration: none;
     }
 
     .btn-outline-modern {
-        background: white;
-        border: 2px solid #e2e8f0;
-        color: #64748b;
+        background: var(--bnn-white);
+        border: 2px solid rgba(59, 130, 246, 0.2);
+        color: var(--bnn-blue-dark);
         border-radius: 12px;
         padding: 0.875rem 1.5rem;
         font-weight: 600;
@@ -254,21 +257,23 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
+        box-shadow: 0 4px 16px rgba(30, 58, 138, 0.05);
     }
 
     .btn-outline-modern:hover {
-        border-color: var(--bnn-primary);
-        color: var(--bnn-primary);
+        border-color: var(--bnn-blue-light);
+        color: var(--bnn-blue-light);
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(30, 64, 175, 0.1);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
         text-decoration: none;
+        background: var(--bnn-blue-soft);
     }
 
     .final-card {
-        background: white;
+        background: var(--bnn-white);
         border-radius: 20px;
         border: none;
-        box-shadow: 0 10px 40px rgba(30, 64, 175, 0.08);
+        box-shadow: 0 10px 40px rgba(30, 58, 138, 0.08);
         overflow: hidden;
         position: relative;
     }
@@ -280,7 +285,7 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, var(--bnn-primary) 0%, var(--bnn-accent) 100%);
+        background: linear-gradient(90deg, var(--bnn-blue-dark) 0%, var(--bnn-yellow) 100%);
     }
 
     .final-card .card-body {
@@ -289,14 +294,76 @@
     }
 
     .final-card h5 {
-        color: var(--bnn-dark);
+        color: var(--bnn-blue-dark);
         font-weight: 600;
         margin-bottom: 1rem;
     }
 
     .final-card p {
-        color: #64748b;
+        color: var(--bnn-gray-dark);
         margin-bottom: 1.5rem;
+        opacity: 0.8;
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, var(--bnn-white) 0%, var(--bnn-blue-soft) 100%);
+        border-radius: 16px;
+        border: 1px solid rgba(59, 130, 246, 0.1);
+        box-shadow: 0 4px 16px rgba(30, 58, 138, 0.05);
+    }
+
+    .section-header h4 {
+        color: var(--bnn-blue-dark);
+        font-weight: 700;
+        margin: 0;
+        flex: 1;
+    }
+
+    .section-header i {
+        color: var(--bnn-blue-light);
+        padding: 0.5rem;
+        background: var(--bnn-white);
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+    }
+
+    .tips-section {
+        background: linear-gradient(135deg, var(--bnn-blue-soft) 0%, var(--bnn-yellow-light) 100%);
+        border-radius: 15px;
+        padding: 1.5rem;
+        border: 1px solid rgba(251, 191, 36, 0.2);
+        margin-top: 2rem;
+    }
+
+    .tips-icon {
+        background: var(--bnn-blue-dark);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 4px 16px rgba(30, 58, 138, 0.2);
+    }
+
+    .tips-content h6 {
+        color: var(--bnn-blue-dark);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .tips-content p {
+        color: var(--bnn-blue-dark);
+        margin: 0;
+        font-size: 0.9rem;
+        opacity: 0.9;
     }
 
     /* Animation */
@@ -375,14 +442,22 @@
             padding-top: 0;
         }
 
-        .d-flex.justify-content-between {
+        .section-header {
             flex-direction: column;
+            text-align: center;
             gap: 1rem;
+            padding: 1.25rem;
+        }
+
+        .section-header .d-flex {
+            flex-direction: column;
+            width: 100%;
         }
 
         .btn-modern, .btn-outline-modern {
             width: 100%;
             justify-content: center;
+            margin-bottom: 0.5rem;
         }
 
         .explanation-section {
@@ -396,10 +471,28 @@
         .final-card .card-body {
             padding: 1.5rem;
         }
+
+        .tips-section {
+            padding: 1.25rem;
+        }
+
+        .tips-section .d-flex {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        .tips-icon {
+            margin: 0 auto;
+        }
     }
 
     @media print {
-        .quiz-header, .btn-modern, .btn-outline-modern, button {
+        .quiz-header .quiz-header::before, 
+        .section-header,
+        .btn-modern, 
+        .btn-outline-modern, 
+        button {
             display: none !important;
         }
         
@@ -407,6 +500,10 @@
             break-inside: avoid;
             box-shadow: none;
             border: 1px solid #ddd;
+        }
+        
+        .tips-section {
+            display: none !important;
         }
     }
 </style>
@@ -418,7 +515,7 @@
         <i class="fas fa-chart-line"></i>
         Hasil Quiz: {{ $quiz->title }}
     </h2>
-    <p>Berikut adalah hasil quiz Anda beserta review jawaban dan penjelasan</p>
+    <p>Berikut adalah hasil quiz Anda beserta review jawaban dan penjelasan lengkap</p>
 </div>
 
 <div class="row mb-4">
@@ -475,12 +572,12 @@
 
                 @if($quiz->passing_score && $attempt->score >= $quiz->passing_score)
                     <div class="answer-summary">
-                        <i class="fas fa-check-circle" style="color: var(--bnn-accent); margin-right: 0.5rem;"></i>
+                        <i class="fas fa-check-circle" style="color: var(--bnn-success); margin-right: 0.5rem;"></i>
                         <strong>Selamat! Anda telah lulus quiz ini</strong>
                     </div>
                 @elseif($quiz->passing_score && $attempt->score < $quiz->passing_score)
                     <div class="answer-summary">
-                        <i class="fas fa-info-circle" style="color: #fbbf24; margin-right: 0.5rem;"></i>
+                        <i class="fas fa-info-circle" style="color: var(--bnn-yellow); margin-right: 0.5rem;"></i>
                         <strong>Skor minimum untuk lulus: {{ $quiz->passing_score }}%</strong>
                     </div>
                 @endif
@@ -489,22 +586,16 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 style="color: var(--bnn-dark); font-weight: 700;">
-                <i class="fas fa-clipboard-list" style="color: var(--bnn-primary);"></i> 
-                Review Jawaban & Penjelasan
-            </h4>
-            <div class="d-flex gap-2">
-                <a href="{{ route('quiz.index') }}" class="btn btn-modern">
-                    <i class="fas fa-play"></i> Quiz Lainnya
-                </a>
-                <a href="{{ route('quiz.history') }}" class="btn btn-outline-modern">
-                    <i class="fas fa-history"></i> Riwayat
-                </a>
-            </div>
-        </div>
+<div class="section-header">
+    <i class="fas fa-clipboard-list"></i>
+    <h4>Review Jawaban & Penjelasan</h4>
+    <div class="d-flex gap-2">
+        <a href="{{ route('quiz.index') }}" class="btn btn-modern">
+            <i class="fas fa-play"></i> Quiz Lainnya
+        </a>
+        <a href="{{ route('quiz.history') }}" class="btn btn-outline-modern">
+            <i class="fas fa-history"></i> Riwayat
+        </a>
     </div>
 </div>
 
@@ -521,11 +612,11 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h6 class="mb-0">
                             <i class="fas fa-{{ $isCorrect ? 'check-circle' : 'times-circle' }}" 
-                               style="color: {{ $isCorrect ? 'var(--bnn-accent)' : '#ef4444' }}; margin-right: 0.5rem;"></i>
+                               style="color: {{ $isCorrect ? 'var(--bnn-success)' : 'var(--bnn-danger)' }}; margin-right: 0.5rem;"></i>
                             Soal {{ $index + 1 }}
                         </h6>
                         <span class="badge" style="
-                            background: {{ $isCorrect ? 'var(--bnn-accent)' : '#ef4444' }};
+                            background: {{ $isCorrect ? 'var(--bnn-success)' : 'var(--bnn-danger)' }};
                             color: white;
                             padding: 0.5rem 1rem;
                             border-radius: 15px;
@@ -541,8 +632,8 @@
                     
                     <div class="row">
                         <div class="col-md-6">
-                            <h6 style="color: var(--bnn-dark); font-weight: 600; margin-bottom: 1rem;">
-                                <i class="fas fa-list-ul" style="color: var(--bnn-primary);"></i> 
+                            <h6 style="color: var(--bnn-blue-dark); font-weight: 600; margin-bottom: 1rem;">
+                                <i class="fas fa-list-ul" style="color: var(--bnn-blue-light);"></i> 
                                 Pilihan Jawaban:
                             </h6>
                             @foreach(['a', 'b', 'c', 'd'] as $option)
@@ -564,9 +655,9 @@
                                         </div>
                                         <div>
                                             @if($isUserAnswer && !$isCorrectAnswer)
-                                                <i class="fas fa-times" style="color: #ef4444;"></i>
+                                                <i class="fas fa-times" style="color: var(--bnn-danger);"></i>
                                             @elseif($isCorrectAnswer)
-                                                <i class="fas fa-check" style="color: var(--bnn-accent);"></i>
+                                                <i class="fas fa-check" style="color: var(--bnn-success);"></i>
                                             @endif
                                         </div>
                                     </div>
@@ -580,20 +671,20 @@
                                     <i class="fas fa-info-circle"></i>
                                     Penjelasan:
                                 </h6>
-                                <p style="color: #64748b; margin: 0; line-height: 1.6;">{{ $question->explanation }}</p>
+                                <p style="color: var(--bnn-gray-dark); margin: 0; line-height: 1.6; opacity: 0.9;">{{ $question->explanation }}</p>
                             </div>
                             
                             @if(!$isCorrect)
                                 <div class="answer-summary">
-                                    <div style="font-size: 0.9rem; color: #64748b;">
+                                    <div style="font-size: 0.9rem; color: var(--bnn-gray-dark);">
                                         <div style="margin-bottom: 0.5rem;">
-                                            <strong style="color: #ef4444;">
+                                            <strong style="color: var(--bnn-danger);">
                                                 <i class="fas fa-times-circle"></i> Jawaban Anda:
                                             </strong> 
                                             {{ strtoupper($userAnswer->user_answer) }}. {{ $question->{'option_' . $userAnswer->user_answer} }}
                                         </div>
                                         <div>
-                                            <strong style="color: var(--bnn-accent);">
+                                            <strong style="color: var(--bnn-success);">
                                                 <i class="fas fa-check-circle"></i> Jawaban Benar:
                                             </strong> 
                                             {{ strtoupper($question->correct_answer) }}. {{ $question->{'option_' . $question->correct_answer} }}
@@ -613,12 +704,12 @@
     <div class="col-12">
         <div class="card final-card">
             <div class="card-body">
-                <div style="background: var(--bnn-primary); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                <div class="tips-icon" style="margin: 0 auto 1.5rem;">
                     <i class="fas fa-graduation-cap" style="font-size: 1.5rem;"></i>
                 </div>
                 <h5>Terima kasih telah mengikuti quiz!</h5>
                 <p>Quiz diselesaikan pada: <strong>{{ $attempt->finished_at->format('d/m/Y H:i') }}</strong></p>
-                <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 2rem;">
+                <p style="color: var(--bnn-gray-dark); font-size: 0.95rem; margin-bottom: 2rem; opacity: 0.8;">
                     Terus tingkatkan pengetahuan Anda tentang bahaya narkoba dengan mengikuti quiz lainnya.
                 </p>
                 
@@ -636,20 +727,16 @@
 </div>
 
 <!-- Tips Section -->
-<div class="row mt-4">
-    <div class="col-12">
-        <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 15px; padding: 1.5rem; border: 1px solid #bae6fd;">
-            <div class="d-flex align-items-center gap-1rem">
-                <div style="background: var(--bnn-primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                    <i class="fas fa-lightbulb"></i>
-                </div>
-                <div style="flex: 1; margin-left: 1rem;">
-                    <h6 style="color: var(--bnn-dark); font-weight: 600; margin-bottom: 0.5rem;">Saran untuk Pembelajaran</h6>
-                    <p style="color: #0369a1; margin: 0; font-size: 0.9rem;">
-                        {{ $attempt->score >= 80 ? 'Hasil yang sangat baik! Pertahankan pengetahuan Anda dan bantu orang lain untuk memahami bahaya narkoba.' : 'Pelajari kembali materi yang belum dikuasai dan coba quiz lainnya untuk meningkatkan pemahaman Anda.' }}
-                    </p>
-                </div>
-            </div>
+<div class="tips-section">
+    <div class="d-flex align-items-center gap-1rem">
+        <div class="tips-icon">
+            <i class="fas fa-lightbulb"></i>
+        </div>
+        <div class="tips-content" style="flex: 1; margin-left: 1rem;">
+            <h6>Saran untuk Pembelajaran</h6>
+            <p>
+                {{ $attempt->score >= 80 ? 'Hasil yang sangat baik! Pertahankan pengetahuan Anda dan bantu orang lain untuk memahami bahaya narkoba.' : 'Pelajari kembali materi yang belum dikuasai dan coba quiz lainnya untuk meningkatkan pemahaman Anda.' }}
+            </p>
         </div>
     </div>
 </div>

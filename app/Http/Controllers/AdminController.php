@@ -46,6 +46,14 @@ class AdminController extends Controller
         return view('admin.results.index', compact('attempts'));
     }
 
+    public function toggleHideQuiz(Quiz $quiz)
+    {
+        $quiz->update(['is_hidden' => !$quiz->is_hidden]);
+        
+        return redirect()->back()->with('success', 'Quiz visibility updated successfully!');
+    }
+
+
     public function show()
     {
         $attempts = QuizAttempt::with(['quiz', 'user'])

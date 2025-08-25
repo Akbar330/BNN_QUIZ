@@ -24,6 +24,7 @@ public function index()
 
     $quizzes = Quiz::where('target_role', $user->role)
         ->where('is_active', true)
+        ->where('is_hidden', false)
         ->withCount('questions')
         ->get();
 

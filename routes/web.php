@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\ErrorController;
 
 // Auth Routes
 Route::get('/', function () {
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/quiz/{quiz}', [AdminController::class, 'showQuiz'])->name('quiz.show');
         Route::get('/quiz/{quiz}/edit', [AdminController::class, 'editQuiz'])->name('quiz.edit');
         Route::put('/quiz/{quiz}', [AdminController::class, 'updateQuiz'])->name('quiz.update');
+        Route::patch('/quiz/{quiz}/hide-quiz', [AdminController::class, 'toggleHideQuiz'])->name('quiz.hideQuiz');
         Route::delete('/quiz/{quiz}', [AdminController::class, 'destroyQuiz'])->name('quiz.destroy');
         
         // Question Management
@@ -58,3 +60,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/quiz/{quiz}/result/{attempt}', [QuizController::class, 'result'])->name('quiz.result');
     Route::get('/quiz-history', [QuizController::class, 'history'])->name('quiz.history');
 });
+
+Route::fallback(function () {
+    // Log 404 untuk monitoring
+    \Log::info('404 Page accessed', [
+        'url' => request()->fullUrl(),
+        'ip' => request()->ip(),
+        'user_agent' => request()->userAgent()
+    ]);
+
+    // Return custom 404 view
+    return response()->view('errors.404', [], 404);
+});
+
+// Atau bisa menggunakan controller
+Route::fallback([ErrorController::class, 'notFound']);

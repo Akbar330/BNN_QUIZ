@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -44,5 +46,34 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Illuminate\Http\Response
+     */
+    public function render($request, Throwable $exception)
+    {
+        // Handle 404 errors
+        if ($exception instanceof NotFoundHttpException) {
+            // Untuk request API (JSON)
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'error' => 'Resource not found',
+                    'message' => 'The requested resource could not be found.',
+                    'status' => 404
+                ], 404);
+            }
+
+            // Untuk request web biasa
+            return response()->view('errors.404', [
+                'exception' => $exception
+            ], 404);
+        }
+
+        return parent::render($request, $exception);
     }
 }

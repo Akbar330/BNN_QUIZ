@@ -15,6 +15,7 @@ class Quiz extends Model
         'target_role',
         'time_limit',
         'is_active',
+        'is_hidden',
     ];
 
     protected $casts = [

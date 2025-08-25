@@ -8,109 +8,129 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.10.1/sweetalert2.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     @stack('styles')
     <style>
         :root {
-            --bnn-primary: #1e40af;
-            --bnn-secondary: #dc2626;
-            --bnn-accent: #059669;
-            --bnn-dark: #1f2937;
-            --bnn-light: #f8fafc;
-            --bnn-gold: #f59e0b;
+            --bnn-blue-dark: #1e3a8a;     /* Biru tua untuk header */
+            --bnn-blue-light: #3b82f6;    /* Biru muda untuk aksen */
+            --bnn-blue-soft: #dbeafe;     /* Biru sangat muda untuk background */
+            --bnn-yellow: #fbbf24;        /* Kuning untuk aksen kecil */
+            --bnn-yellow-light: #fef3c7;  /* Kuning muda untuk highlight */
+            --bnn-white: #ffffff;
+            --bnn-gray-light: #f8fafc;
+            --bnn-gray-dark: #374151;
+            --bnn-success: #10b981;
+            --bnn-danger: #ef4444;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--bnn-white) 0%, var(--bnn-blue-soft) 100%);
             min-height: 100vh;
+            color: var(--bnn-gray-dark);
+            line-height: 1.6;
         }
 
         .navbar-bnn {
-            background: linear-gradient(135deg, var(--bnn-primary) 0%, var(--bnn-secondary) 100%);
-            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.3);
-            border-bottom: 3px solid var(--bnn-gold);
+            background: linear-gradient(135deg, var(--bnn-blue-dark) 0%, var(--bnn-blue-light) 100%);
+            box-shadow: 0 8px 32px rgba(30, 58, 138, 0.15);
+            border-bottom: 3px solid var(--bnn-yellow);
+            padding: 1rem 0;
         }
 
         .navbar-brand {
-            font-weight: 700;
-            font-size: 1.4rem;
+            font-weight: 600;
+            font-size: 1.3rem;
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
         }
 
         .navbar-brand {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    text-decoration: none;
-}
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
 
-.navbar-logo {
-    width: 40px;          /* Ukuran logo diperkecil dari default */
-    height: 40px;         /* Tinggi yang proporsional */
-    object-fit: contain;  /* Mempertahankan aspek ratio */
-    background: white;    /* Background putih untuk kontras */
-    padding: 4px;         /* Sedikit padding */
-    border-radius: 8px;   /* Sudut yang rounded */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Shadow yang subtle */
-}
+        .navbar-logo {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            background: var(--bnn-white);
+            padding: 6px;
+            border-radius: 50%;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
 
-.navbar-text-content {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.2;
-}
+        .navbar-logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
 
-.navbar-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: white;
-    margin: 0;
-}
+        .navbar-text-content {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
 
-.navbar-subtitle {
-    font-size: 0.7rem;
-    opacity: 0.9;
-    color: white;
-    margin: 0;
-}
+        .navbar-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--bnn-white);
+            margin: 0;
+        }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .navbar-logo {
-        width: 35px;
-        height: 35px;
-    }
-    
-    .navbar-title {
-        font-size: 1rem;
-    }
-    
-    .navbar-subtitle {
-        font-size: 0.65rem;
-    }
-    
-    .navbar-brand {
-        gap: 0.5rem;
-    }
-}
+        .navbar-subtitle {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            color: var(--bnn-yellow-light);
+            margin: 0;
+            font-weight: 400;
+        }
 
-@media (max-width: 576px) {
-    .navbar-logo {
-        width: 32px;
-        height: 32px;
-    }
-    
-    .navbar-title {
-        font-size: 0.9rem;
-    }
-    
-    .navbar-subtitle {
-        display: none; /* Hide subtitle on very small screens */
-    }
-}
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .navbar-logo {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .navbar-title {
+                font-size: 1rem;
+            }
+            
+            .navbar-subtitle {
+                font-size: 0.7rem;
+            }
+            
+            .navbar-brand {
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-logo {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .navbar-title {
+                font-size: 0.9rem;
+            }
+            
+            .navbar-subtitle {
+                display: none;
+            }
+        }
 
         .bnn-logo {
             width: 40px;
@@ -124,74 +144,86 @@
         }
 
         .bnn-logo i {
-            color: var(--bnn-primary);
+            color: var(--bnn-blue-dark);
             font-size: 1.2rem;
         }
 
         .nav-link {
             font-weight: 500;
             transition: all 0.3s ease;
-            border-radius: 8px;
+            border-radius: 12px;
             margin: 0 4px;
+            padding: 0.6rem 1rem;
         }
 
         .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.15);
             transform: translateY(-1px);
+            color: var(--bnn-yellow-light) !important;
         }
 
         .badge-role {
-            background: var(--bnn-gold) !important;
-            color: var(--bnn-dark) !important;
+            background: var(--bnn-yellow) !important;
+            color: var(--bnn-blue-dark) !important;
             font-weight: 600;
             font-size: 0.7rem;
-            padding: 4px 8px;
-            border-radius: 12px;
+            padding: 6px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
         }
 
         .dropdown-menu {
             border: none;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            border-radius: 12px;
-            padding: 0.5rem 0;
+            box-shadow: 0 16px 48px rgba(30, 58, 138, 0.12);
+            border-radius: 16px;
+            padding: 0.75rem 0;
             margin-top: 0.5rem;
+            background: var(--bnn-white);
+            min-width: 220px;
         }
 
         .dropdown-item {
-            padding: 0.6rem 1.2rem;
+            padding: 0.75rem 1.5rem;
             font-weight: 500;
             transition: all 0.3s ease;
-            border-radius: 8px;
+            border-radius: 12px;
             margin: 0 0.5rem;
+            color: var(--bnn-gray-dark);
         }
 
         .dropdown-item:hover {
-            background: linear-gradient(135deg, var(--bnn-primary), var(--bnn-secondary));
+            background: linear-gradient(135deg, var(--bnn-blue-light), var(--bnn-blue-dark));
             color: white;
-            transform: translateX(4px);
+            transform: translateX(6px);
         }
 
         .dropdown-item i {
-            width: 16px;
-            margin-right: 8px;
+            width: 18px;
+            margin-right: 10px;
+            color: var(--bnn-blue-light);
+        }
+
+        .dropdown-item:hover i {
+            color: var(--bnn-yellow-light);
         }
 
         .alert-bnn {
             border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid;
+            padding: 1.25rem;
         }
 
         .alert-success {
-            background: linear-gradient(135deg, #dcfdf7 0%, #a7f3d0 100%);
-            border-left-color: var(--bnn-accent);
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-left-color: var(--bnn-success);
             color: #065f46;
         }
 
         .alert-danger {
-            background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
-            border-left-color: var(--bnn-secondary);
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-left-color: var(--bnn-danger);
             color: #991b1b;
         }
 
@@ -203,18 +235,25 @@
         .main-content::before {
             content: '';
             position: absolute;
-            top: 0;
+            top: -20px;
             left: 0;
             right: 0;
-            height: 150px;
-            background: linear-gradient(135deg, var(--bnn-primary) 0%, var(--bnn-secondary) 100%);
-            opacity: 0.05;
-            border-radius: 0 0 50px 50px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--bnn-blue-soft) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border-radius: 0 0 60px 60px;
             z-index: -1;
         }
 
         .btn-close {
             filter: brightness(0) saturate(100%) invert(25%) sepia(15%) saturate(2270%) hue-rotate(206deg) brightness(94%) contrast(89%);
+            border-radius: 50%;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-close:hover {
+            transform: scale(1.1);
+            background: rgba(59, 130, 246, 0.1);
         }
 
         .footer-pattern {
@@ -222,24 +261,72 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--bnn-primary) 0%, var(--bnn-gold) 50%, var(--bnn-secondary) 100%);
+            height: 6px;
+            background: linear-gradient(90deg, var(--bnn-blue-dark) 0%, var(--bnn-blue-light) 30%, var(--bnn-yellow) 50%, var(--bnn-blue-light) 70%, var(--bnn-blue-dark) 100%);
             z-index: 1000;
+            box-shadow: 0 -2px 16px rgba(30, 58, 138, 0.2);
         }
 
-        @media (max-width: 768px) {
-            .navbar-brand {
-                font-size: 1.2rem;
-            }
-            
-            .bnn-logo {
-                width: 35px;
-                height: 35px;
-            }
+        /* Floating Background Shapes */
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            background: var(--bnn-blue-soft);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 15s infinite linear;
+        }
+
+        .floating-shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-shape:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 5s;
+        }
+
+        .floating-shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(90deg); }
+            50% { transform: translateY(0) rotate(180deg); }
+            75% { transform: translateY(-10px) rotate(270deg); }
         }
     </style>
 </head>
 <body>
+    <!-- Floating Background Shapes -->
+    <div class="floating-shapes">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
     <nav class="navbar navbar-expand-lg navbar-dark navbar-bnn">
     <div class="container">
         <a class="navbar-brand" href="{{ route('quiz.index') }}">
